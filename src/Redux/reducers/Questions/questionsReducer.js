@@ -16,7 +16,7 @@ import {
     error: {},
   };
   
-  export default function (state = initialState, action) {
+  export default function questionsReducer (state = initialState, action) {
     switch (action.type) {
       case GET_QUESTIONS:
       case GET_TOP_QUESTIONS:

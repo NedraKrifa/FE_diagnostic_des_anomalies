@@ -93,7 +93,7 @@ export default function LoginForm() {
     
             <Form.Item>
                 <Button type="primary" htmlType="submit" block shape="round" size="large" style={{backgroundColor:'#562ad5', borderColor:'#562ad5'}}>
-                Login
+                    Login
                 </Button>
             </Form.Item>
 
