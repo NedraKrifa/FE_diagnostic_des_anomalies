@@ -6,18 +6,9 @@ import {
     Form,
     Input,
     Button,
-    Alert
+    Alert,
   } from 'antd';
 
-  /*
-  const layout = {
-    labelCol: { span: 6 },
-    wrapperCol: { span: 8 },
-  };
-  const tailLayout = {
-    wrapperCol: { offset: 3, span: 2 },
-  };
-*/
 
 export default function LoginForm() {
     const dispatch = useDispatch();
@@ -44,60 +35,66 @@ export default function LoginForm() {
     }
   
     return (
-        <Form
-            form={form}
-            layout="vertical"
-            name="login"
-            onFinish={onFinish}
-            scrollToFirstError
-            style={{border:'1px solid grey',padding:'20px',borderRadius:'10px',backgroundColor:'#fff'}}
-            >
-            <Form.Item>
-                <h1 style={{textAlign:'center'}} >Login to your <span style={{color:'#562ad5'}}>Account</span></h1>
-            </Form.Item>
+      <Form
+        form={form}
+        layout="vertical"
+        name="login"
+        onFinish={onFinish}
+        scrollToFirstError
+        style={{ padding: "100px" }}
+      >
+        <Form.Item>
+          <h1 style={{ textAlign: "center" }}>
+            Login to your <span style={{ color: "#562ad5" }}>Account</span>
+          </h1>
+        </Form.Item>
 
-            {msg ? (
-                <Form.Item>
-                    <Alert message={msg} type="error" />
-                </Form.Item>
-            ) : null}
-            
+        {msg ? (
+          <Form.Item>
+            <Alert message={msg} type="error" />
+          </Form.Item>
+        ) : null}
 
-            <Form.Item
-                name="username"
-                label="Username"
-                rules={[
-                {
-                    required: true,
-                    message: 'Please input your Username!',
-                },
-                ]}
-                hasFeedback
-            >
-                <Input allowClear placeholder="Enter Your Username"/>
-            </Form.Item>
+        <Form.Item
+          name="username"
+          label="Username"
+          rules={[
+            {
+              required: true,
+              message: "Please input your Username!",
+            },
+          ]}
+          hasFeedback
+        >
+          <Input allowClear placeholder="Enter Your Username" />
+        </Form.Item>
 
-            <Form.Item
-                name="password"
-                label="Password"
-                rules={[
-                {
-                    required: true,
-                    message: 'Please input your password!',
-                },
-                ]}
-                hasFeedback
-            >
-                <Input.Password allowClear placeholder="Enter Your Password"/>
-            </Form.Item>
-    
-            <Form.Item>
-                <Button type="primary" htmlType="submit" block shape="round" size="large" style={{backgroundColor:'#562ad5', borderColor:'#562ad5'}}>
-                    Login
-                </Button>
-            </Form.Item>
+        <Form.Item
+          name="password"
+          label="Password"
+          rules={[
+            {
+              required: true,
+              message: "Please input your password!",
+            },
+          ]}
+          hasFeedback
+        >
+          <Input.Password allowClear placeholder="Enter Your Password" />
+        </Form.Item>
 
-        </Form>
-
-    )
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            block
+            shape="round"
+            size="large"
+            style={{ backgroundColor: "#562ad5", border: "none" }}
+          >
+            Login
+          </Button>
+        </Form.Item>
+      </Form>
+    );
 }
