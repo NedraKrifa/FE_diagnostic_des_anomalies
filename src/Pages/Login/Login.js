@@ -7,7 +7,7 @@ export default function Login() {
     return (
         <LoginRow justify="center" align='middle' >
             <LoginCol span={6} default >'
-                <AppLogo width='40%' />
+                <AppLogo width='40%' style={{ margin: "0px 10px"}} />
                 <LoginForm />
             </LoginCol>
             <LoginCol span={9} >

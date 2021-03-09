@@ -7,9 +7,14 @@ import {
     Button,
     Select
   } from 'antd';
+  import {FormQ, ButtonQ} from "./QuestionAskForm.styled";
 
   const { TextArea } = Input;
   const { Option } = Select;
+
+  const tailLayout = {
+    wrapperCol: { span: 4 },
+  };
 
 export default function QuestionAskForm() {
     const dispatch = useDispatch();
@@ -28,18 +33,12 @@ export default function QuestionAskForm() {
     };
 
     return (
-      <Form
+      <FormQ
         form={form}
         layout="vertical"
         name="AskQuestion"
         onFinish={onFinish}
         scrollToFirstError
-        style={{
-          border: "1px solid grey",
-          padding: "20px",
-          borderRadius: "10px",
-          backgroundColor: "#fff",
-        }}
       >
         <Form.Item
           name="title"
@@ -72,7 +71,13 @@ export default function QuestionAskForm() {
           ]}
           hasFeedback
         >
-          <TextArea allowClear rows={10} placeholder="enter your description" />
+          <TextArea
+            allowClear
+            rows={14}
+            showCount
+            maxLength={5000}
+            placeholder="enter your description"
+          />
         </Form.Item>
 
         <Form.Item style={{ marginTop: "-10px" }}>
@@ -109,18 +114,15 @@ export default function QuestionAskForm() {
           <span>Add up to 5 tags to describe what your question is about</span>
         </Form.Item>
 
-        <Form.Item>
-          <Button
-            type="primary"
+        <Form.Item {...tailLayout}>
+          <ButtonQ
             htmlType="submit"
             block
-            shape="round"
             size="large"
-            style={{ backgroundColor: "#562ad5", borderColor: "#562ad5" }}
           >
             Post your question
-          </Button>
+          </ButtonQ>
         </Form.Item>
-      </Form>
+      </FormQ>
     );
 }

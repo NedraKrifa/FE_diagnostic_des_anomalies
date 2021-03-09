@@ -22,7 +22,7 @@ export default function Routes() {
                 <Route exact path='/users' component={Users} />
                 <Route exact path='/login' component={Login} />
                 <Route exact path='/questions/:id' component={QuestionAnswer} />
-                <Route exact path='/questions/Search' component={SearchResults} />
+                <Route exact path='/questions/search' component={SearchResults} />
                 <Route exact path='/users/:id' component={Profile} />
                 <Route exact path='/tags/:tagname' component={QuestionsTag} />
                 <Route exact path='/add/question' component={QuestionForm} />
