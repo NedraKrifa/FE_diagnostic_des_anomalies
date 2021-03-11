@@ -4,7 +4,6 @@ import { addQuestion } from '../../../../Redux/actions/Questions/questionsAction
 import {
     Form,
     Input,
-    Button,
     Select
   } from 'antd';
   import {FormQ, ButtonQ} from "./QuestionAskForm.styled";

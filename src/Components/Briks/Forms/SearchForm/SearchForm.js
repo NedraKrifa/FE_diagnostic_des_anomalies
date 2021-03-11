@@ -2,8 +2,6 @@ import React from 'react';
 import { Input } from 'antd';
 import { UpSquareOutlined, SearchOutlined } from '@ant-design/icons';
 
-const { Search } = Input;
-
 const suffix = (
   <UpSquareOutlined
     style={{

@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components';
 import appLogo from "../../../../Assets/Logo.png";
 
 export default function AppLogo({width,style}) {

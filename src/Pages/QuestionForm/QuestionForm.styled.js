@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Row, Col, Divider } from "antd";
 import imageQF from "../../Assets/web.jpg";
 
