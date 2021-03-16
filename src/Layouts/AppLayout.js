@@ -4,8 +4,9 @@ import {
     Col,
   } from 'antd';
 import AppHeader from '../Components/Common/Header/AppHeader';
-import AppMenu from '../Components/Common/Menu/AppMenu';
+import AppMenu from '../Components/Common/Menu/AppMenu/AppMenu';
 import TopTags from '../Components/Common/TopTags/TopTags';
+import imageTU from '../Assets/19333428.jpg'
 
 const data = [
   "javascript",
@@ -18,7 +19,7 @@ const data = [
   "mongodb",
 ];
 
-export default function AppLayout({children}) {
+export default function AppLayout({children,isPTags}) {
     return (
       <>
         <AppHeader />
@@ -37,7 +38,7 @@ export default function AppLayout({children}) {
             {children}
           </Col>
           <Col span={5} style={{ marginTop: "40px", marginLeft:'15px' }}>
-            <TopTags data={data}/>
+            {isPTags ? <TopTags data={data}/> : <img src={imageTU} alt='ProxymTips' width='100%'/>}
           </Col>
         </Row>
       </>

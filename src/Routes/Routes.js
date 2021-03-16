@@ -11,21 +11,21 @@ import Users from '../Pages/Users/Users';
 import QuestionsTag from '../Pages/QuestionsTag/QuestionsTag';
 import SearchResults from '../Pages/SearchResults/SearchResults';
 import QuestionForm from '../Pages/QuestionForm/QuestionForm';
-
+import PrivateRoute from "./PrivateRoute";
 export default function Routes() {
     return (
         <Router>
             <Switch>
-                <Route exact path='/' component={Home} />
-                <Route exact path='/questions' component={QuestionsList} />
-                <Route exact path='/tags' component={Tags} />
-                <Route exact path='/users' component={Users} />
+                <PrivateRoute exact path='/' component={Home} />
                 <Route exact path='/login' component={Login} />
-                <Route exact path='/questions/:id' component={QuestionAnswer} />
-                <Route exact path='/questions/search' component={SearchResults} />
-                <Route exact path='/users/:id' component={Profile} />
-                <Route exact path='/tags/:tagname' component={QuestionsTag} />
-                <Route exact path='/add/question' component={QuestionForm} />
+                <PrivateRoute exact path='/questions' component={QuestionsList} />
+                <PrivateRoute exact path='/tags' component={Tags} />
+                <PrivateRoute exact path='/users' component={Users} />
+                <PrivateRoute exact path='/questions/:id' component={QuestionAnswer} />
+                <PrivateRoute exact path='/questions/search' component={SearchResults} />
+                <PrivateRoute exact path='/users/:id' component={Profile} />
+                <PrivateRoute exact path='/tags/:tagname' component={QuestionsTag} />
+                <PrivateRoute exact path='/add/question' component={QuestionForm} />
                 <Route path='*' component={NotFound} />
             </Switch>
         </Router>

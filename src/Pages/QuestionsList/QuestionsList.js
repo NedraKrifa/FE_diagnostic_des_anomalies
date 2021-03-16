@@ -1,15 +1,13 @@
 import React from 'react'
-import { useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import AppLayout from '../../Layouts/AppLayout';
+import QuestionsBody from '../../Components/Briks/Body/QuestionsBody/QuestionsBody';
 
 export default function QuestionsList() {
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-    if (!isAuthenticated) {
-        return <Redirect to="/login" />;
-    }
     return (
         <div>
-            questions list
+            <AppLayout isPTags>
+                <QuestionsBody/>
+            </AppLayout>
         </div>
     )
 }
