@@ -1,82 +1,7 @@
 import React from 'react'
 import { Card, List, Tag } from 'antd';
 
-const data = [
-  {
-    title: "javascript",
-  },
-  {
-    title: "java",
-  },
-  {
-    title: "mongoDB",
-  },
-  {
-    title: "reactjs",
-  },
-  {
-    title: "nodejs",
-  },
-  {
-    title: "express",
-  },
-  {
-    title: "css",
-  },
-  {
-    title: "Title 2",
-  },
-  {
-    title: "Title 3",
-  },
-  {
-    title: "Title 4",
-  },
-  {
-    title: "Title 5",
-  },
-  {
-    title: "Title 6",
-  },
-  {
-    title: "Title 1",
-  },
-  {
-    title: "Title 2",
-  },
-  {
-    title: "Title 3",
-  },
-  {
-    title: "Title 4",
-  },
-  {
-    title: "Title 5",
-  },
-  {
-    title: "Title 6",
-  },
-  {
-    title: "Title 1",
-  },
-  {
-    title: "Title 2",
-  },
-  {
-    title: "Title 3",
-  },
-  {
-    title: "Title 4",
-  },
-  {
-    title: "Title 5",
-  },
-  {
-    title: "Title 6",
-  },
-];
-
-export default function ListTU() {
+export default function  ListTU({tags}) {
     return (
       <List
         grid={{
@@ -95,17 +20,17 @@ export default function ListTU() {
           },
           pageSize: 12,
         }}
-        dataSource={data}
+        dataSource={tags}
         renderItem={(item) => (
           <List.Item>
             <Card
               title={
                 <Tag color="cyan">
-                  {item.title}
+                  {item.name}
                 </Tag>
               }
             >
-              100 Questions
+              {item.questioNumber} Questions
             </Card>
           </List.Item>
         )}

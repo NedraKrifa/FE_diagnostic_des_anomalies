@@ -11,7 +11,7 @@ export default function AppHeader() {
     return (
       <HeaderRow justify="center" align="middle">
         <Col span={4}>
-          <Link to="/">
+          <Link to="/private">
             <AppLogo width="50%" style={{ margin: "-20px 10px" }} />
           </Link>
         </Col>

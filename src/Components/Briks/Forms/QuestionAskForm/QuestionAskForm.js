@@ -1,12 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { addQuestion } from '../../../../Redux/actions/Questions/questionsActions'
+import { addQuestion } from '../../../../Redux/actions/Questions/questionsActions';
 import {
     Form,
     Input,
     Select
   } from 'antd';
   import {FormQ, ButtonQ} from "./QuestionAskForm.styled";
+  import { useHistory } from "react-router-dom";
 
   const { TextArea } = Input;
   const { Option } = Select;
@@ -16,19 +17,32 @@ import {
   };
 
 export default function QuestionAskForm() {
+    const history= useHistory()
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.user);
+    const tags = useSelector((state) => state.tags.tags);
     const [form] = Form.useForm();
 
     const onFinish = (values) => {
       console.log('Received values of form: ', values);
+      const listTags=[];
+      values.tags.forEach(element => {
+        if(Number(element)){
+          listTags.push(tags[Number(element)].name);
+        }else{
+          listTags.push(element);
+        }
+      });
+      console.log(tags[Number('0')].name);
+      console.log(listTags);
       const question = {
           author: user.username,
           title: values.title,
           body: values.description,
-          tags: values.tags
+          tags: listTags
       }
       dispatch(addQuestion(question));
+      history.push("/private");
     };
 
     return (
@@ -103,8 +117,8 @@ export default function QuestionAskForm() {
             style={{ width: "100%", color: "darkcyan" }}
             placeholder="enter a tag"
           >
-            {["java", "javascript", "php", "c"].map((tag, i) => {
-              return <Option key={i}>{tag}</Option>;
+            {tags.map((tag, i) => {
+              return <Option key={i}>{tag.name}</Option>;
             })}
           </Select>
         </Form.Item>

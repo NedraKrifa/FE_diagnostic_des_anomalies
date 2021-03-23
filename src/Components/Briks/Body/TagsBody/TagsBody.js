@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from "react-redux";
 import { Input, Row, Col } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import ListT from '../../../Common/Lists/Tags/ListT';
@@ -15,6 +16,7 @@ const prefix = (
   );
 
 export default function TagsBody() {
+  const tags = useSelector((state) => state.tags.tags);
     return (
       <>
         <div style={{ marginBottom: "30px" }}>
@@ -39,7 +41,7 @@ export default function TagsBody() {
             <TagsFilter />
           </Col>
         </Row>
-        <ListT />
+        <ListT tags={tags}/>
       </>
     );
 }

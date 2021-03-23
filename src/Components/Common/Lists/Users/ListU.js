@@ -103,7 +103,7 @@ export default function ListU() {
                 avatar={
                   <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                 }
-                title={<a href={"/"}>{item.title}</a>}
+                title={<a href={"/private"}>{item.title}</a>}
                 description={<div>Created 6 hours ago</div>}
               />
             </Card>

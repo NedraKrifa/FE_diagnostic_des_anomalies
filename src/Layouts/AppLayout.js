@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     Row,
     Col,
@@ -6,20 +6,14 @@ import {
 import AppHeader from '../Components/Common/Header/AppHeader';
 import AppMenu from '../Components/Common/Menu/AppMenu/AppMenu';
 import TopTags from '../Components/Common/TopTags/TopTags';
-import imageTU from '../Assets/19333428.jpg'
+import imageTU from '../Assets/19333428.jpg';
+import { useDispatch } from "react-redux";
+import { getTopTags } from "../Redux/actions/Tags/tagsActions";
 
-const data = [
-  "javascript",
-  "java",
-  "angular",
-  "reactjs",
-  "nodejs",
-  "springboot",
-  "expressjs",
-  "mongodb",
-];
 
 export default function AppLayout({children,isPTags}) {
+  const dispatch = useDispatch();
+  useEffect(() => dispatch(getTopTags()), [dispatch]);
     return (
       <>
         <AppHeader />
@@ -38,7 +32,7 @@ export default function AppLayout({children,isPTags}) {
             {children}
           </Col>
           <Col span={5} style={{ marginTop: "40px", marginLeft:'15px' }}>
-            {isPTags ? <TopTags data={data}/> : <img src={imageTU} alt='ProxymTips' width='100%'/>}
+            {isPTags ? <TopTags /> : <img src={imageTU} alt='ProxymTips' width='100%'/>}
           </Col>
         </Row>
       </>

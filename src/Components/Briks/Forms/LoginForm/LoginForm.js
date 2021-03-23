@@ -8,12 +8,13 @@ import {
     Button,
     Alert,
   } from 'antd';
+  import { isAuthenticated } from "../../../../Utils/Utils"
 
 
 export default function LoginForm() {
     const dispatch = useDispatch();
     const error = useSelector((state) => state.error);
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    const isAuthenticatedd = useSelector((state) => state.auth.isAuthenticated);
     const [msg, setMsg] = useState(null);
     const [form] = Form.useForm();
 
@@ -28,10 +29,10 @@ export default function LoginForm() {
         } else {
           setMsg(null);
         }
-      }, [error, isAuthenticated]);
+      }, [error, isAuthenticatedd]);
     
-    if (isAuthenticated) {
-        return <Redirect to="/" />;
+    if (isAuthenticated()) {
+        return <Redirect to="/private" />;
     }
   
     return (

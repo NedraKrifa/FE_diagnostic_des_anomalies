@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function AskButton() {
     return (
-        <Link to='/add/question'>
+        <Link to='/private/add/question'>
             <ButtonAsk size="large">
                 Ask Question
             </ButtonAsk>
