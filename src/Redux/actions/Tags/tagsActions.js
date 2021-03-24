@@ -1,4 +1,10 @@
-import { GET_NAME_TAGS, GET_NEW_TAGS, GET_TOP_TAGS, TAGS_LOADING } from "./tagsTypes";
+import {
+  GET_NAME_TAGS,
+  GET_NEW_TAGS,
+  GET_TOP_TAGS,
+  TAGS_LOADING,
+  GET_TAG,
+} from "./tagsTypes";
 import axios from "axios";
 import tokenConfig from "../Auth/authUtils";
 import { getErrors } from "../Errors/errorsActions";
@@ -44,6 +50,21 @@ export const getNameTags = () => (dispatch, getState) => {
       dispatch({
         type: GET_NAME_TAGS,
         payload: tags,
+      })
+    )
+    .catch((err) =>
+      dispatch(getErrors(err.response.data, err.response.status))
+    );
+};
+
+export const getTag= (id) => (dispatch, getState) => {
+  axios
+    .get(`/api/tags/${id}`, tokenConfig(getState))
+    .then((res) => res.data)
+    .then((tag) =>
+      dispatch({
+        type: GET_TAG,
+        payload: tag,
       })
     )
     .catch((err) =>

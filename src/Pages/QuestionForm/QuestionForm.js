@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 
 export default function QuestionForm() {
   const error = useSelector((state) => state.error);
+
     return (
       <>
         <AppHeader />

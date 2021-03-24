@@ -26,7 +26,7 @@ export default function  ListTU({tags}) {
             <Card
               title={
                 <Tag color="cyan">
-                  {item.name}
+                  <a href={`/private/tags/${item._id}`} style={{ color: "#08979c" }}>{item.name}</a>
                 </Tag>
               }
             >

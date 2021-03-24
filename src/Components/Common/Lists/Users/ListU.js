@@ -1,82 +1,7 @@
 import React from 'react'
 import { Card, List, Avatar } from 'antd';
 
-const data = [
-  {
-    title: "Nedra Krifa",
-  },
-  {
-    title: "John Doe",
-  },
-  {
-    title: "John Doe",
-  },
-  {
-    title: "John Doe",
-  },
-  {
-    title: "John Doe",
-  },
-  {
-    title: "John Doe",
-  },
-  {
-    title: "John Doe",
-  },
-  {
-    title: "John Doe",
-  },
-  {
-    title: "John Doe",
-  },
-  {
-    title: "John Doe",
-  },
-  {
-    title: "John Doe",
-  },
-  {
-    title: "John Doe",
-  },
-  {
-    title: "John Doe",
-  },
-  {
-    title: "Title 2",
-  },
-  {
-    title: "Title 3",
-  },
-  {
-    title: "Title 4",
-  },
-  {
-    title: "Title 5",
-  },
-  {
-    title: "Title 6",
-  },
-  {
-    title: "Title 1",
-  },
-  {
-    title: "Title 2",
-  },
-  {
-    title: "Title 3",
-  },
-  {
-    title: "Title 4",
-  },
-  {
-    title: "Title 5",
-  },
-  {
-    title: "Title 6",
-  },
-];
-
-export default function ListU() {
+export default function ListU({users}) {
     return (
       <List
         grid={{
@@ -95,7 +20,7 @@ export default function ListU() {
           },
           pageSize: 16,
         }}
-        dataSource={data}
+        dataSource={users}
         renderItem={(item) => (
           <List.Item>
             <Card>
@@ -103,8 +28,8 @@ export default function ListU() {
                 avatar={
                   <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                 }
-                title={<a href={"/private"}>{item.title}</a>}
-                description={<div>Created 6 hours ago</div>}
+                title={<a href={`/private/users/${item._id}`}>{item.username}</a>}
+                description={<div>Created {item.created}</div>}
               />
             </Card>
           </List.Item>

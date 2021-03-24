@@ -6,18 +6,16 @@ import {
     Input,
     Select
   } from 'antd';
-  import {FormQ, ButtonQ} from "./QuestionAskForm.styled";
-  import { useHistory } from "react-router-dom";
+import {FormQ, ButtonQ} from "./QuestionAskForm.styled";
 
-  const { TextArea } = Input;
-  const { Option } = Select;
+const { TextArea } = Input;
+const { Option } = Select;
 
-  const tailLayout = {
-    wrapperCol: { span: 4 },
-  };
+const tailLayout = {
+  wrapperCol: { span: 4 },
+};
 
 export default function QuestionAskForm() {
-    const history= useHistory()
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.user);
     const tags = useSelector((state) => state.tags.tags);
@@ -27,7 +25,7 @@ export default function QuestionAskForm() {
       console.log('Received values of form: ', values);
       const listTags=[];
       values.tags.forEach(element => {
-        if(Number(element)){
+        if(Number(element) || Number(element) === 0){
           listTags.push(tags[Number(element)].name);
         }else{
           listTags.push(element);
@@ -41,8 +39,7 @@ export default function QuestionAskForm() {
           body: values.description,
           tags: listTags
       }
-      dispatch(addQuestion(question));
-      history.push("/private");
+      dispatch(addQuestion(question)); 
     };
 
     return (

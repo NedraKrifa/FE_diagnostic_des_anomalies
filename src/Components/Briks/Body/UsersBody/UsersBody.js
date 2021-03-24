@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from "react-redux";
 import { Input, Row, Col } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import UsersFilter from '../../../Common/Menu/FilterMenu/UsersFilter/UsersFilter';
@@ -16,6 +17,7 @@ const prefix = (
   );
 
 export default function UsersBody() {
+    const users = useSelector((state) => state.users.users);
     return (
       <>
         <h1>Users</h1>
@@ -33,7 +35,7 @@ export default function UsersBody() {
             <UsersFilter />
           </Col>
         </Row>
-        <ListU/>
+        <ListU users={users}/>
       </>
     );
 }

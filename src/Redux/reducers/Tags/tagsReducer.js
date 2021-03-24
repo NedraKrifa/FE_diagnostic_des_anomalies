@@ -4,10 +4,12 @@ import {
   GET_TOP_TAGS,
   TAGS_LOADING,
   TAGS_ERROR,
+  GET_TAG
 } from "../../actions/Tags/tagsTypes";
   
   const initialState = {
     tags: [],
+    tag: {},
     loading: false,
     error: {},
   };
@@ -22,6 +24,11 @@ import {
           tags: action.payload,
           loading: false,
         };
+      case GET_TAG:
+        return {
+          ...state,
+          tag: action.payload,
+        };
       case TAGS_ERROR:
         return {
           ...state,
@@ -32,7 +39,7 @@ import {
         return {
           ...state,
           loading: true,
-        }
+        };
       default:
         return state;
     }

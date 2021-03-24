@@ -8,7 +8,9 @@ export default function TopTags() {
       <Card title="Popular Tags">
         {tags.map((tag, i) => (
           <Tag color="cyan" key={i} style={{ marginBottom: "10px" }}>
-            {tag.name}
+            <a href={`/private/tags/${tag._id}`} style={{ color: "#08979c" }}>
+              {tag.name}
+            </a>
           </Tag>
         ))}
       </Card>
