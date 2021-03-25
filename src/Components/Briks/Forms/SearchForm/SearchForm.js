@@ -3,13 +3,12 @@ import { Input } from 'antd';
 import { UpSquareOutlined, SearchOutlined } from '@ant-design/icons';
 
 const suffix = (
-  <UpSquareOutlined
+  <a href="/private/questions/search"><UpSquareOutlined
     style={{
       fontSize: 20,
       color: "#5867dd",
     }}
-    onClick={()=>console.log('suffix')}
-  />
+  /></a>
 );
 
 const prefix = (
@@ -18,7 +17,6 @@ const prefix = (
         fontSize: 20,
         color: "#5867dd",
       }}
-      onClick={()=>console.log('prefix')}
     />
   );
 

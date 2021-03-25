@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { convertDate } from "../../../../Utils/Utils";
 import { List, Avatar, Space, Tag } from 'antd';
 import { MessageOutlined, LikeOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import {BodyContainer} from './ListQ.styled';
@@ -37,14 +38,14 @@ export default function ItemQ({question}) {
           avatar={
             <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
           }
-          title={<a href={"/"}>{question.title}</a>}
+          title={<a href={`/private/questions/question/${question._id}`}>{question.title}</a>}
           description={
             <div>
               Asked by
               <a style={{ margin: "0px 5px" }} href={"/"}>
                 {question.author}
               </a>
-              _{question.created}
+              {convertDate(question.created)}
             </div>
           }
         />

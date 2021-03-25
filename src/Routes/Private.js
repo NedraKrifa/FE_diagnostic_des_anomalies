@@ -29,7 +29,7 @@ export default function Private() {
           <Route exact path="/private/users" component={Users} />
           <Route
             exact
-            path="/private/questions/:id"
+            path="/private/questions/question/:id"
             component={QuestionAnswer}
           />
           <Route

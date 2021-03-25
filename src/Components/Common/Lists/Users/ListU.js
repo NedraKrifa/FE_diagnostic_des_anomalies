@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card, List, Avatar } from 'antd';
+import { convertDate } from "../../../../Utils/Utils";
 
 export default function ListU({users}) {
     return (
@@ -29,7 +30,7 @@ export default function ListU({users}) {
                   <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                 }
                 title={<a href={`/private/users/${item._id}`}>{item.username}</a>}
-                description={<div>Created {item.created}</div>}
+                description={<div>Created {convertDate(item.created)}</div>}
               />
             </Card>
           </List.Item>

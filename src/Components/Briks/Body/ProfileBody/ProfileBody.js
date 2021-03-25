@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row, Col, Avatar, List, Typography, Divider } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-
+import { convertDate } from "../../../../Utils/Utils";
 
 const data = [
     'Racing car sprays burning fuel into crowdRacing car sprays burning fuel into crowd.',
@@ -38,7 +38,7 @@ export default function ProfileBody({user}) {
           <Col style={{marginTop:'20px'}}>
             <h3 style={{color:'#484848'}}>Email: {user.email}</h3>
             <h3 style={{color:'#484848'}}>Role: {user.role}</h3>
-            <h3 style={{color:'#484848'}}>Created: {user.created}</h3>
+            <h3 style={{color:'#484848'}}>Created: {convertDate(user.created)}</h3>
           </Col>
         </Row>
         <List
