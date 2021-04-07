@@ -34,11 +34,11 @@ export default function QuestionAskForm() {
       console.log(tags[Number('0')].name);
       console.log(listTags);
       const question = {
-          author: user.username,
-          title: values.title,
-          body: values.description,
-          tags: listTags
-      }
+        author: { _id: user._id, username: user.username },
+        title: values.title,
+        body: values.description,
+        tags: listTags,
+      };
       dispatch(addQuestion(question)); 
     };
 

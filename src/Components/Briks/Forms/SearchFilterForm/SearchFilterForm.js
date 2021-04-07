@@ -21,7 +21,7 @@ const tailLayout = {
 
 const CheckboxGroup = Checkbox.Group;
 
-const plainOptions = ['Search', 'Redmine', 'Quality test'];
+const plainOptions = ['Search', 'Redmine'];
 const defaultCheckedList = ['Search'];
 
 export default function SearchFilterForm() {
@@ -71,6 +71,7 @@ export default function SearchFilterForm() {
           <Select
             mode="tags"
             allowClear
+            size="large"
             style={{ width: "100%", color: "darkcyan" }}
             placeholder="Enter a tag"
           >
@@ -84,6 +85,7 @@ export default function SearchFilterForm() {
           <Select
             mode="tags"
             allowClear
+            size="large"
             style={{ width: "100%", color: "darkcyan" }}
             placeholder="Enter a user"
           >

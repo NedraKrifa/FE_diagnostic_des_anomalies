@@ -20,6 +20,7 @@ export default function TagsFilter() {
         onClick={handleClick}
         selectedKeys={[selector]}
         mode="horizontal"
+        style={{fontSize: '20px'}}
       >
         <Menu.Item key="1">Popular</Menu.Item>
         <Menu.Item key="2">Name</Menu.Item>

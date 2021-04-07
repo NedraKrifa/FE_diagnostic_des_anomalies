@@ -4,6 +4,7 @@ import AskButton from '../../../Common/Buttons/AskButton/AskButton';
 import { useSelector } from "react-redux";
 import ListQ from '../../../Common/Lists/Questions/ListQ';
 import SearchFilterForm from '../../Forms/SearchFilterForm/SearchFilterForm';
+import { TitleH1 } from '../../../../App.styled';
 
 export default function SearchResultsBody() {
     const questions = useSelector((state) => state.questions.questions);
@@ -11,7 +12,7 @@ export default function SearchResultsBody() {
       <>
         <Row justify="space-between" style={{ marginBottom: "25px" }}>
           <Col>
-            <h1>Search Results</h1>
+            <TitleH1>Search Results</TitleH1>
           </Col>
           <Col>
             <AskButton />

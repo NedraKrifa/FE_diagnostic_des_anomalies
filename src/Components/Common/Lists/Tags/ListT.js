@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card, List, Tag } from 'antd';
+import TagItem from '../../TopTags/TagItem';
 
 export default function  ListTU({tags}) {
     return (
@@ -8,9 +9,9 @@ export default function  ListTU({tags}) {
           gutter: 16,
           xs: 1,
           sm: 2,
-          md: 4,
+          md: 3,
           lg: 4,
-          xl: 5,
+          xl: 4,
           xxl: 4,
         }}
         style={{ marginTop: "50px" }}
@@ -19,15 +20,16 @@ export default function  ListTU({tags}) {
             console.log(page);
           },
           pageSize: 12,
+          showSizeChanger:false,
         }}
         dataSource={tags}
         renderItem={(item) => (
           <List.Item>
             <Card
               title={
-                <Tag color="cyan">
-                  <a href={`/private/tags/${item._id}`} style={{ color: "#08979c" }}>{item.name}</a>
-                </Tag>
+                <TagItem
+                  tag={item}
+                />
               }
             >
               {item.questioNumber} Questions

@@ -8,7 +8,7 @@ export default function QuestionsFilter() {
         setSelector(e.key);
       };
     return (
-      <Menu onClick={handleClick} selectedKeys={[selector]} mode="horizontal" style={{marginBottom:'30px'}}>
+      <Menu onClick={handleClick} selectedKeys={[selector]} mode="horizontal" style={{marginBottom:'50px', fontSize:'20px'}}>
         <Menu.Item key="1">
           Newest
         </Menu.Item>

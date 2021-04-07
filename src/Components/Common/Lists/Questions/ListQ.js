@@ -11,7 +11,8 @@ export default function ListQ({questions}) {
           onChange: (page) => {
             console.log(page);
           },
-          pageSize: 3,
+          pageSize: 5,
+          showSizeChanger:false,
         }}
         dataSource={questions}
         renderItem={(question) => <ItemQ question={question} />}

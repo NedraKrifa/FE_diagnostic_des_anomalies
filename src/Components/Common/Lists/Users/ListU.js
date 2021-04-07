@@ -8,10 +8,10 @@ export default function ListU({users}) {
         grid={{
           gutter: 16,
           xs: 1,
-          sm: 2,
-          md: 4,
-          lg: 4,
-          xl: 5,
+          sm: 1,
+          md: 2,
+          lg: 3,
+          xl: 3,
           xxl: 4,
         }}
         style={{ marginTop: "50px" }}
@@ -20,6 +20,7 @@ export default function ListU({users}) {
             console.log(page);
           },
           pageSize: 16,
+          showSizeChanger:false,
         }}
         dataSource={users}
         renderItem={(item) => (
@@ -27,9 +28,14 @@ export default function ListU({users}) {
             <Card>
               <List.Item.Meta
                 avatar={
-                  <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                  <Avatar
+                    size={45}
+                    src={`https://secure.gravatar.com/avatar/${item._id}?s=164&d=identicon`}
+                  />
                 }
-                title={<a href={`/private/users/${item._id}`}>{item.username}</a>}
+                title={
+                  <a href={`/private/users/${item._id}`}><h2>{item.username}</h2></a>
+                }
                 description={<div>Created {convertDate(item.created)}</div>}
               />
             </Card>

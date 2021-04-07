@@ -1,6 +1,5 @@
 import React from 'react'
 import { Row, Col, Avatar, List, Typography, Divider } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
 import { convertDate } from "../../../../Utils/Utils";
 
 const data = [
@@ -29,11 +28,11 @@ const data = [
 export default function ProfileBody({user}) {
     return (
       <div style={{margin:'40px'}}>
-        <h1 style={{marginBottom:'-20px', color:'#484848'}}>{user.username}</h1>
+        <h1 style={{marginBottom:'-20px', color:'#484848', fontSize:"2.2rem"}}>{user.username}</h1>
         <Divider style={{border:'1px solid #5867dd'}}/>
         <Row justify="space-between" style={{ marginBottom: "50px",width:'50%' }}>
           <Col>
-            <Avatar shape="square" size={200} icon={<UserOutlined />} />
+            <Avatar shape="square" size={200} src={`https://secure.gravatar.com/avatar/${user._id}?s=164&d=identicon`} />
           </Col>
           <Col style={{marginTop:'20px'}}>
             <h3 style={{color:'#484848'}}>Email: {user.email}</h3>

@@ -12,16 +12,16 @@ export default function AppHeader() {
       <HeaderRow justify="center" align="middle">
         <Col span={4}>
           <Link to="/private">
-            <AppLogo width="50%" style={{ margin: "-20px 10px" }} />
+            <AppLogo width="80%" style={{ margin: "-25px 10px" }} />
           </Link>
         </Col>
-        <Col span={15}>
+        <Col span={14}>
           <SearchForm />
         </Col>
         <Col offset={1}>
           <UserAvatar />
         </Col>
-        <Col style={{ marginLeft: "20px" }}>
+        <Col style={{ marginLeft: "40px" }}>
           <LogoutButton />
         </Col>
       </HeaderRow>

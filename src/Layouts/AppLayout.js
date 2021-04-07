@@ -22,16 +22,21 @@ export default function AppLayout({children,isPTags}) {
             <AppMenu />
           </Col>
           <Col
-            span={15}
+            span={14}
             style={{
-              borderLeft: "1px solid #d6d9dc",
+              marginBottom: "40px",
+              marginTop: "40px",
+              marginLeft:"20px",
+              borderRadius: "5px",
               padding: "30px",
+              border: "1px solid #d6d9dc",
               background: "#e1e1ef49",
+              boxShadow: '0px 0px 16px rgba(88, 103, 221, 0.2)',
             }}
           >
             {children}
           </Col>
-          <Col span={5} style={{ marginTop: "40px", marginLeft:'15px' }}>
+          <Col span={5} style={{ marginTop: "40px", marginLeft:'30px' }}>
             {isPTags ? <TopTags /> : <img src={imageTU} alt='ProxymTips' width='100%'/>}
           </Col>
         </Row>
