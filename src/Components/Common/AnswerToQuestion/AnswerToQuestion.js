@@ -1,7 +1,14 @@
-import React, { useState } from 'react'
-import { Comment, Avatar, Form, Button, List, Input } from 'antd';
+import React, { useState, useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { Comment, Form, Button, List, Input } from 'antd';
 import moment from 'moment';
 import ItemATQ from './ItemATQ';
+import socketIOClient from "socket.io-client";
+import { v4 as uuidv4 } from 'uuid';
+import { AnswersList } from "../../../Utils/Utils";
+import { addAnswer, getAnswers } from "../../../Redux/actions/Answers/answersActions";
+
+const SOCKET_SERVER_URL = "http://localhost:5000";
 
 const { TextArea } = Input;
 
@@ -33,36 +40,82 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
   </div>
 );
 
-export default function AnswerToQuestion({question}) {
-    const [comments, setComments] = useState([]);
+export default function AnswerToQuestion({question, user}) {
+    const dispatch = useDispatch();
+    const {_id} = question;
+    const id = _id;
+    const [messages, setMessages] = useState([]);
+    const [message, setMessage] = useState({});
     const [submitting, setSubmitting] = useState(false);
     const [value, setValue] = useState('');
+    const socketRef = useRef();
 
+    useEffect(() => dispatch(getAnswers(_id)), [dispatch, question]);
+    const answers = useSelector((state) => state.answers.answers);
+    const answerItem = useSelector((state) => state.answers.answer);
+
+    useEffect(() => {
+      const messagesList = AnswersList(answers);
+      setMessages(messagesList);
+    }, [_id,answers]);
+
+    useEffect(() => {
+      setMessage(answerItem);
+    }, [_id,answerItem]);
+
+    useEffect(() => {
+      socketRef.current = socketIOClient(SOCKET_SERVER_URL, {
+        query: {id },
+      });
+  
+      socketRef.current.on("connect", () => {
+      });
+  
+      socketRef.current.on('NEW_CHAT_MESSAGE_EVENT', (message) => {
+        const incomingMessage = {
+          content: <ItemATQ value={message.body} answer={message.answer} user={message.user} datetime={moment().fromNow()} />,
+          ...message,
+          user,
+          ownedByCurrentUser: message.senderId === socketRef.current.id,
+        };
+        console.log("incomingmessages",incomingMessage);
+        if (user._id !== message.user._id) {setMessages((messages) => [...messages, incomingMessage]);}
+      });
+  
+      return () => {
+        socketRef.current.disconnect();
+      };
+    }, [id]);
+
+    const handleSocketAnswer=(answerSocket)=>{
+      setTimeout(() => {
+        setSubmitting(false);
+        setValue('');
+        console.log('answer2',answerSocket)
+        socketRef.current.emit('NEW_CHAT_MESSAGE_EVENT', {
+          body: value,
+          user:user,
+          senderId: socketRef.current.id,
+          answer: answerSocket,
+        });
+    }, 1000);
+    }
     const handleSubmit = () => {
-        if (!value) {
-          return;
-        }
-    
-        setSubmitting(true);
-    
-        setTimeout(() => {
-            setSubmitting(false);
-            setValue('');
-            setComments([
-              ...comments,
-              {
-                content: <ItemATQ value={value} question={question} datetime={moment().fromNow()} />
-              },
-            ]);
-        }, 1000);
+      if (!socketRef.current) return;
+      setSubmitting(true);
+      const answer = {
+        author: { _id: user._id, username: user.username },
+        body: value,
+        questionId: _id,
+      };
+      dispatch(addAnswer(answer,handleSocketAnswer));
       };
       const handleChange = e => {
         setValue(e.target.value);
       };
-
     return (
       <>
-        {comments.length > 0 && <CommentList comments={comments} />}
+        {messages.length > 0 && <CommentList comments={messages} />}
         <Comment
           style={{backgroundColor:'transparent'}}
           content={

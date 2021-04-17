@@ -21,8 +21,7 @@ export default function TopTags() {
             key={i}
             tag={tag}
             style={{
-              marginBottom: "10px",
-              marginTop: "10px",
+              marginBottom: "10px"
             }}
           />
         ))}

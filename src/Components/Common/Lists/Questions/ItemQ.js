@@ -65,7 +65,7 @@ export default function ItemQ({question}) {
               marginBottom: "10px",
               marginTop: "10px",
             }}
-            tag={tag}
+            tag={tag.name}
           />
         ))}
       </QuestionItem>

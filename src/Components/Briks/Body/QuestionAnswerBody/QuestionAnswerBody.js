@@ -1,15 +1,19 @@
-import React from "react";
+import React,{ useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import { Row, Col, List, Avatar } from 'antd';
+import { Row, Col, List, Avatar, Button } from 'antd';
 import { convertDate } from "../../../../Utils/Utils";
 import AskButton from '../../../Common/Buttons/AskButton/AskButton';
 import { CaretUpFilled, CaretDownFilled } from '@ant-design/icons';
 import CommentQuestion from '../../../Common/Comments/CommentQuestion';
 import AnswerToQuestion from '../../../Common/AnswerToQuestion/AnswerToQuestion';
 import TagItem from '../../../Common/TopTags/TagItem';
+import { loadUser } from "../../../../Redux/actions/Auth/authActions"
+import { getAnswers } from "../../../../Redux/actions/Answers/answersActions";
+import { upVote, downVote, getVote} from "../../../../Redux/actions/Votes/votesActions";
 
 const renderers = {
   code: ({language, value}) => {
@@ -18,6 +22,44 @@ const renderers = {
 }
 
 export default function QuestionAnswerBody({question}) {
+  const dispatch = useDispatch();
+  const [voteValue, setVoteValue] = useState(0);
+  useEffect(() => dispatch(loadUser()), [dispatch]);
+  const item = useSelector((state) => state.auth.user);
+  const user =item ? item : '';
+  useEffect(() => dispatch(getAnswers(question._id)), [dispatch, question]);
+  //console.log('questinvote',question.vote);
+  useEffect(() => setVoteValue(question.vote), voteValue);
+  useEffect(() =>user._id && question._id ? dispatch(getVote(user._id,question._id)) : null, voteValue);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const votesData=useSelector((state) => state.votes.vote);
+  //console.log("votesData",votesData)
+  const voteStyle = user._id && question._id && Object.keys(votesData).length ? votesData[question._id+user._id]?.value : 0;
+
+  const refetchVoteValue=(index)=>{
+    setVoteValue(voteValue+index);
+    dispatch(getVote(user._id,question._id))
+  }
+
+  const increment=()=>{
+    const vote={
+      userId: user._id,
+      postId: question._id,
+      type: 'question'
+    }
+    dispatch(upVote(vote,refetchVoteValue));
+  }
+
+  const decrement=()=>{
+    const vote={
+      userId: user._id,
+      postId: question._id,
+      type: 'question'
+    }
+    dispatch(downVote(vote,refetchVoteValue));
+  }
+  //console.log('vote',voteValue);
+
     return (
       <>
         <Row justify="space-between" style={{ marginBottom: "25px" }}>
@@ -30,12 +72,12 @@ export default function QuestionAnswerBody({question}) {
         </Row>
         <Row>
           <Col span={4} style={{ fontSize: "50px", color: "grey" }}>
-            <Row justify="center" style={{}}>
-              <CaretUpFilled />
-            </Row>
-            <Row justify="center">2</Row>
             <Row justify="center">
-              <CaretDownFilled />
+            <Button shape="circle" disabled={voteStyle === 1 ? true : false} className="button" icon={<CaretUpFilled style={{fontSize:"50px"}} />} onClick={()=>increment()}/>
+            </Row>
+            <Row justify="center">{voteValue}</Row>
+            <Row justify="center">
+            <Button shape="circle" disabled={voteStyle === -1 ? true : false} className="button" icon={<CaretDownFilled style={{fontSize:"50px"}} />} onClick={()=>decrement()}/>
             </Row>
           </Col>
           <Col span={18}>
@@ -44,7 +86,7 @@ export default function QuestionAnswerBody({question}) {
               ? question.tags.map((tag, i) => (
                   <TagItem
                     without
-                    tag={tag}
+                    tag={tag.name}
                     style={{
                       marginTop: "10px",
                     }}
@@ -67,10 +109,10 @@ export default function QuestionAnswerBody({question}) {
                 />
               </List.Item>
             </Row>
-            <CommentQuestion question={question} />
+            <CommentQuestion question={question} type="question" user={user}/>
           </Col>
         </Row>
-        <AnswerToQuestion question={question} />
+        <AnswerToQuestion question={question} user={user} />
       </>
     );
 }

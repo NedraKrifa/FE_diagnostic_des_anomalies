@@ -32,7 +32,7 @@ export default function  ListTU({tags}) {
                 />
               }
             >
-              {item.questioNumber} Questions
+              {item.questioNumber} {item.questioNumber > 1 ? 'Questions' : 'Question'}
             </Card>
           </List.Item>
         )}

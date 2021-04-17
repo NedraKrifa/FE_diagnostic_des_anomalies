@@ -4,8 +4,8 @@ import { TagThemeAlea } from "../../../Utils/Utils";
 import { TagItemStyle } from "./TagItem.styled";
 
 export default function TagItem({tag, style, without}) {
-    const tagColor= TagThemeAlea();
-    console.log('ho',tagColor)
+    const tagValue = without ? tag : tag.name; 
+    const tagColor= TagThemeAlea(tagValue);
     return (
       <TagItemStyle color={tagColor.theme} style={style}>
         {without ? (

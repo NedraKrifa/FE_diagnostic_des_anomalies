@@ -6,6 +6,7 @@ import {
     QUESTION_ERROR,
     QUESTIONS_LOADING,
     DELETE_QUESTION,
+    UPDATE_QUESTION,
     ADD_QUESTION,
   } from '../../actions/Questions/questionsTypes';
   
@@ -41,6 +42,28 @@ import {
           ...state,
           questions: state.questions.filter((question) => question.id !== action.payload),
         };
+        case UPDATE_QUESTION:
+          return {
+            ...state,
+            questions: state.questions.map((question)=>{
+              const {author,answers,comments,_id,title,body,tags,created,__v,vote} = question;
+              if(_id === action.payload.postId) {
+                return {
+                  author,
+                  answers,
+                  comments,
+                  _id,
+                  title,
+                  body,
+                  tags,
+                  created,
+                  __v,
+                  vote: vote + action.payload.vote
+                }
+              }
+              return question;
+            }),
+          };
       case QUESTION_ERROR:
         return {
           ...state,

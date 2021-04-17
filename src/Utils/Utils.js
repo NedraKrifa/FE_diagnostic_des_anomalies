@@ -1,5 +1,8 @@
 import dayjs from 'dayjs';
 import localizedFormat from "dayjs/plugin/localizedFormat";
+import ItemATQ from '../Components/Common/AnswerToQuestion/ItemATQ';
+
+const encode = require( 'hashcode' ).hashCode;
 
 dayjs.extend(localizedFormat);
 
@@ -26,8 +29,40 @@ const TagTheme = [
   { theme: "purple", color: "#531dab" },
 ];
 
-export const TagThemeAlea = () => {
+export const TagThemeAlea = (string) => {
     let max = TagTheme.length;
-    let randomInt=Math.floor(Math.random() * max);
-    return TagTheme[randomInt];
+    //let randomInt=Math.floor(Math.random() * max);
+    const hash = encode().value(string); 
+    const hashInt=Math.abs(hash % max);
+    return TagTheme[hashInt];
+}
+
+export const CommentsList = (comments) => {
+    comments = comments ? comments : [];
+    const list = comments.map((comment)=>{
+        return {
+            author: comment.author.username,
+            avatar: `https://secure.gravatar.com/avatar/${comment.author._id}?s=164&d=identicon`,
+            content: <p>{comment.body}</p>,
+            datetime: convertDate(comment.created),
+        }
+    })
+    return list;
+}
+
+export const AnswersList = (answers) => {
+  return Array.isArray(answers) && answers.length ? (answers.map((answer)=>{
+        const {body, _id, author, created} = answer;
+        return {
+          content: (
+            <ItemATQ
+              value={body}
+              user={author}
+              datetime={convertDate(created)}
+              answer={answer}
+            />
+          ),
+          _id
+        };
+    })) : [];
 }

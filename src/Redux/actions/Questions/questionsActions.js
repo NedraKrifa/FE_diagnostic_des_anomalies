@@ -6,6 +6,7 @@ import {
     QUESTION_ERROR,
     DELETE_QUESTION,
     ADD_QUESTION,
+    UPDATE_QUESTION,
     QUESTIONS_LOADING
   } from './questionsTypes';
 import axios from "axios";
@@ -70,6 +71,13 @@ export const deleteQuestion = (id) => (dispatch, getState) => {
     .catch((err) =>
       dispatch(getErrors(err.response.data, err.response.status))
     );
+};
+
+export const updateQuestion = (vote) => (dispatch) => {
+      dispatch({
+        type: UPDATE_QUESTION,
+        payload: vote,
+      });
 };
 
 export const setQuestionsLoading = () => {

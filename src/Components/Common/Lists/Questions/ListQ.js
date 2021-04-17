@@ -15,7 +15,7 @@ export default function ListQ({questions}) {
           showSizeChanger:false,
         }}
         dataSource={questions}
-        renderItem={(question) => <ItemQ question={question} />}
+        renderItem={(question) => <ItemQ key={question._id} question={question} />}
       />
     );
 }

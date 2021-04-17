@@ -22,7 +22,7 @@ export default function QuestionAskForm() {
     const [form] = Form.useForm();
 
     const onFinish = (values) => {
-      console.log('Received values of form: ', values);
+      //console.log('Received values of form: ', values);
       const listTags=[];
       values.tags.forEach(element => {
         if(Number(element) || Number(element) === 0){
@@ -31,8 +31,8 @@ export default function QuestionAskForm() {
           listTags.push(element);
         }
       });
-      console.log(tags[Number('0')].name);
-      console.log(listTags);
+      //console.log(tags[Number('0')].name);
+      //console.log(listTags);
       const question = {
         author: { _id: user._id, username: user.username },
         title: values.title,
