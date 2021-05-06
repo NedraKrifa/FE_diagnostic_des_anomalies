@@ -16,21 +16,20 @@ const IconText = ({ icon, text }) => (
 export default function ItemQ({question}) {
     return (
       <QuestionItem
-        key={question._id}
         actions={[
           <IconText
             icon={LikeOutlined}
-            text="156"
+            text={question.vote}
             key="list-vertical-vote-o"
           />,
           <IconText
             icon={QuestionCircleOutlined}
-            text="4"
+            text={question.answers.length}
             key="list-vertical-answer-o"
           />,
           <IconText
             icon={MessageOutlined}
-            text="2"
+            text={question.comments.length}
             key="list-vertical-comment"
           />,
         ]}
@@ -60,12 +59,12 @@ export default function ItemQ({question}) {
         <BodyContainer>{question.body}</BodyContainer>
         {question.tags.map((tag, i) => (
           <TagItem
-            without
+            key={i}
             style={{
               marginBottom: "10px",
               marginTop: "10px",
             }}
-            tag={tag.name}
+            tag={tag}
           />
         ))}
       </QuestionItem>

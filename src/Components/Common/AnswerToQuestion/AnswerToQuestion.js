@@ -4,7 +4,6 @@ import { Comment, Form, Button, List, Input } from 'antd';
 import moment from 'moment';
 import ItemATQ from './ItemATQ';
 import socketIOClient from "socket.io-client";
-import { v4 as uuidv4 } from 'uuid';
 import { AnswersList } from "../../../Utils/Utils";
 import { addAnswer, getAnswers } from "../../../Redux/actions/Answers/answersActions";
 
@@ -45,23 +44,21 @@ export default function AnswerToQuestion({question, user}) {
     const {_id} = question;
     const id = _id;
     const [messages, setMessages] = useState([]);
-    const [message, setMessage] = useState({});
     const [submitting, setSubmitting] = useState(false);
     const [value, setValue] = useState('');
     const socketRef = useRef();
 
-    useEffect(() => dispatch(getAnswers(_id)), [dispatch, question]);
+    useEffect(() => {
+      dispatch(getAnswers(_id));
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch, question]);
     const answers = useSelector((state) => state.answers.answers);
-    const answerItem = useSelector((state) => state.answers.answer);
 
     useEffect(() => {
       const messagesList = AnswersList(answers);
       setMessages(messagesList);
     }, [_id,answers]);
 
-    useEffect(() => {
-      setMessage(answerItem);
-    }, [_id,answerItem]);
 
     useEffect(() => {
       socketRef.current = socketIOClient(SOCKET_SERVER_URL, {
@@ -85,6 +82,7 @@ export default function AnswerToQuestion({question, user}) {
       return () => {
         socketRef.current.disconnect();
       };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     const handleSocketAnswer=(answerSocket)=>{

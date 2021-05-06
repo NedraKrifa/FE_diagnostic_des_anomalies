@@ -2,12 +2,14 @@ import {
     GET_QUESTIONS,
     GET_QUESTION,
     GET_TOP_QUESTIONS,
+    GET_OLD_QUESTIONS,
     GET_TAG_QUESTIONS,
-    QUESTION_ERROR,
+    GET_USER_QUESTIONS,
     DELETE_QUESTION,
     ADD_QUESTION,
     UPDATE_QUESTION,
-    QUESTIONS_LOADING
+    QUESTIONS_LOADING,
+    GET_SEARCH_QUESTIONS
   } from './questionsTypes';
 import axios from "axios";
 import tokenConfig from "../Auth/authUtils";
@@ -21,6 +23,86 @@ export const getQuestions = () => (dispatch, getState) => {
     .then((questions) =>
       dispatch({
         type: GET_QUESTIONS,
+        payload: questions,
+      })
+    )
+    .catch((err) =>
+      dispatch(getErrors(err.response.data, err.response.status))
+    );
+};
+
+export const getOldQuestions = () => (dispatch, getState) => {
+  dispatch(setQuestionsLoading());
+  axios
+    .get("/api/questions/old", tokenConfig(getState))
+    .then((res) => res.data)
+    .then((questions) =>
+      dispatch({
+        type: GET_OLD_QUESTIONS,
+        payload: questions,
+      })
+    )
+    .catch((err) =>
+      dispatch(getErrors(err.response.data, err.response.status))
+    );
+};
+
+export const getTopQuestions = () => (dispatch, getState) => {
+  dispatch(setQuestionsLoading());
+  axios
+    .get("/api/questions/top", tokenConfig(getState))
+    .then((res) => res.data)
+    .then((questions) =>
+      dispatch({
+        type: GET_TOP_QUESTIONS,
+        payload: questions,
+      })
+    )
+    .catch((err) =>
+      dispatch(getErrors(err.response.data, err.response.status))
+    );
+};
+
+export const getTagQuestions = (id,name) => (dispatch, getState) => {
+  dispatch(setQuestionsLoading());
+  axios
+    .get(`/api/questions/tags/id=${id}&name=${name}`, tokenConfig(getState))
+    .then((res) => res.data)
+    .then((questions) =>
+      dispatch({
+        type: GET_TAG_QUESTIONS,
+        payload: questions,
+      })
+    )
+    .catch((err) =>
+      dispatch(getErrors(err.response.data, err.response.status))
+    );
+};
+
+export const getUserQuestions = (id,name) => (dispatch, getState) => {
+  dispatch(setQuestionsLoading());
+  axios
+    .get(`/api/questions/users/id=${id}&name=${name}`, tokenConfig(getState))
+    .then((res) => res.data)
+    .then((questions) =>
+      dispatch({
+        type: GET_USER_QUESTIONS,
+        payload: questions,
+      })
+    )
+    .catch((err) =>
+      dispatch(getErrors(err.response.data, err.response.status))
+    );
+};
+
+export const getSearchQuestions = (body) => (dispatch, getState) => {
+  dispatch(setQuestionsLoading());
+  axios
+    .get(`/api/questions/search/${body}`, tokenConfig(getState))
+    .then((res) => res.data)
+    .then((questions) =>
+      dispatch({
+        type: GET_SEARCH_QUESTIONS,
         payload: questions,
       })
     )

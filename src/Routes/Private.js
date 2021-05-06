@@ -10,7 +10,6 @@ import QuestionsTag from '../Pages/QuestionsTag/QuestionsTag';
 import SearchResults from '../Pages/SearchResults/SearchResults';
 import QuestionForm from '../Pages/QuestionForm/QuestionForm';
 import { loadUser } from '../Redux/actions/Auth/authActions';
-import { getQuestions } from "../Redux/actions/Questions/questionsActions";
 import { getTopTags } from "../Redux/actions/Tags/tagsActions";
 import { getMembers } from "../Redux/actions/Users/usersActions";
 import { useDispatch } from "react-redux";
@@ -18,7 +17,6 @@ import { useDispatch } from "react-redux";
 export default function Private() {
   const dispatch = useDispatch();
   useEffect(() => dispatch(loadUser()), [dispatch]);
-  useEffect(() => dispatch(getQuestions()), [dispatch]);
   useEffect(() => dispatch(getTopTags()), [dispatch]);
   useEffect(() => dispatch(getMembers()), [dispatch]);
     return (
@@ -38,7 +36,7 @@ export default function Private() {
             component={SearchResults}
           />
           <Route exact path="/private/users/:id" component={Profile} />
-          <Route exact path="/private/tags/:tagname" component={QuestionsTag} />
+          <Route exact path="/private/questions/tags/:tagname" component={QuestionsTag} />
           <Route exact path="/private/add/question" component={QuestionForm} />
         </Switch>
     );

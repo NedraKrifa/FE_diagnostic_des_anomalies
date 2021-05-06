@@ -29,8 +29,19 @@ export default function QuestionAnswerBody({question}) {
   const user =item ? item : '';
   useEffect(() => dispatch(getAnswers(question._id)), [dispatch, question]);
   //console.log('questinvote',question.vote);
-  useEffect(() => setVoteValue(question.vote), voteValue);
-  useEffect(() =>user._id && question._id ? dispatch(getVote(user._id,question._id)) : null, voteValue);
+  useEffect(
+    () => setVoteValue(question.vote),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    voteValue
+  );
+  useEffect(
+    () =>
+      user._id && question._id
+        ? dispatch(getVote(user._id, question._id))
+        : null,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    voteValue
+  );
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const votesData=useSelector((state) => state.votes.vote);
   //console.log("votesData",votesData)
@@ -85,8 +96,7 @@ export default function QuestionAnswerBody({question}) {
             {question.tags
               ? question.tags.map((tag, i) => (
                   <TagItem
-                    without
-                    tag={tag.name}
+                    tag={tag}
                     style={{
                       marginTop: "10px",
                     }}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, List, Tag } from 'antd';
+import { Card, List } from 'antd';
 import TagItem from '../../TopTags/TagItem';
 
 export default function  ListTU({tags}) {

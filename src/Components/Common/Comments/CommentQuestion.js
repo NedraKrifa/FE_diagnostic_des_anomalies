@@ -44,6 +44,7 @@ export default function CommentQuestion({question, user, type}) {
     useEffect(() => {
       const messagesList = CommentsList(question.comments);
       setMessages(messagesList);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [_id]);
 
     useEffect(() => {
@@ -70,6 +71,7 @@ export default function CommentQuestion({question, user, type}) {
       return () => {
         socketRef.current.disconnect();
       };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
 

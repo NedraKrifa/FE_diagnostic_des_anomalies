@@ -13,6 +13,7 @@ export default function TagsFilter() {
         case "1": return dispatch(getTopTags());
         case "2": return dispatch(getNameTags());
         case "3": return dispatch(getNewTags());
+        default: return true;
       }
     };
     return (

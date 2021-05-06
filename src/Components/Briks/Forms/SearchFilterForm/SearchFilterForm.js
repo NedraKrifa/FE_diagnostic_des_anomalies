@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Form, Input, Select, Button, Checkbox, Divider } from "antd";
+import { Form, Input, Select, Checkbox, Divider } from "antd";
 import { FormSF, ButtonSF } from "./SearchFilterForm.styled";
 import { useSelector, useDispatch } from "react-redux";
+import { getSearchQuestions } from '../../../../Redux/actions/Questions/questionsActions';
 import { SearchOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
@@ -25,7 +26,7 @@ const plainOptions = ['Search', 'Redmine'];
 const defaultCheckedList = ['Search'];
 
 export default function SearchFilterForm() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
     const users = useSelector((state) => state.users.users);
     const tags = useSelector((state) => state.tags.tags);
     const [form] = Form.useForm();
@@ -34,7 +35,33 @@ export default function SearchFilterForm() {
     const [checkAll, setCheckAll] = useState(false);
 
     const onFinish = (values) => {
-        console.log('Received values of form: ', values);
+        //console.log('Received values of form: ', values);
+        const listTags=[];
+        if(values.tags){
+          values.tags.forEach((element) => {
+            if (Number(element) || Number(element) === 0) {
+              listTags.push(tags[Number(element)].name);
+            } else {
+              listTags.push(element);
+            }
+          });
+        }
+
+        const listUsers=[];
+        if(values.users){
+          values.users.forEach((element) => {
+            if (Number(element) || Number(element) === 0) {
+              listUsers.push(users[Number(element)].username);
+            } else {
+              listUsers.push(element);
+            }
+          });
+        }
+
+        const title=values.title ? values.title: ''
+
+        const question = "?title="+title+"&tags="+listTags.join(",")+"&authors="+listUsers.join(",");
+        dispatch(getSearchQuestions(question)); 
     }
 
     const onChange = list => {

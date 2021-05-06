@@ -1,6 +1,9 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Input } from 'antd';
 import { UpSquareOutlined, SearchOutlined } from '@ant-design/icons';
+import { useDispatch } from "react-redux";
+import { getSearchQuestions } from '../../../../Redux/actions/Questions/questionsActions';
+import { useHistory } from "react-router-dom";
 
 const suffix = (
   <a href="/private/questions/search"><UpSquareOutlined
@@ -20,7 +23,21 @@ const prefix = (
     />
   );
 
+
 export default function SearchForm() {
+  const history= useHistory()
+  const dispatch = useDispatch();
+  const [value, setValue] = useState('');
+  
+  const onChange = (e) => {
+    setValue(e.target.value);
+  };
+
+  const enterSearch = () => {
+    const question = "?title="+value+"&tags=&authors=";
+    dispatch(getSearchQuestions(question)); 
+    history.push("/private/questions/search");
+  };
 
   return (
     <Input
@@ -30,6 +47,8 @@ export default function SearchForm() {
       size="large"
       suffix={suffix}
       prefix={prefix}
+      onChange={onChange}
+      onPressEnter={enterSearch}
     />
   );
 }

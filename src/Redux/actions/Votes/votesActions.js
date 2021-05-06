@@ -1,7 +1,5 @@
 import {
     GET_VOTE,
-    UP_VOTE,
-    DOWN_VOTE,
     VOTES_LOADING
   } from './votesTypes';
 import axios from "axios";

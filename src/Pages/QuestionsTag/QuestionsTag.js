@@ -10,9 +10,10 @@ export default function QuestionsTag() {
     const dispatch = useDispatch();
     useEffect(() => dispatch(getTag(tagname)), [tagname,dispatch]);
     const tag = useSelector((state) => state.tags.tag);
+
     return (
         <AppLayout isPTags>
-          <QuestionsTagBody tagName={tag.name}/>
+          <QuestionsTagBody tag={tag}/>
         </AppLayout>
     )
 }

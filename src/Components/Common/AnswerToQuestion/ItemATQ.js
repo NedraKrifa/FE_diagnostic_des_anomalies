@@ -1,7 +1,6 @@
 import React,{ useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col, List, Avatar, Divider, Button } from 'antd';
-import { convertDate } from "../../../Utils/Utils";
 import { CaretUpFilled, CaretDownFilled } from '@ant-design/icons';
 import CommentQuestion from '../Comments/CommentQuestion';
 import ReactMarkdown from 'react-markdown';
@@ -22,7 +21,14 @@ export default function ItemATQ({value, datetime, user, answer}) {
   const item = useSelector((state) => state.auth.user);
   const useritem =item ? item : '';
   //console.log('answervote',answer.vote);
-  useEffect(() =>useritem._id && answer._id ? dispatch(getVote(useritem._id,answer._id)) : null, []);
+  useEffect(
+    () =>
+      useritem._id && answer._id
+        ? dispatch(getVote(useritem._id, answer._id))
+        : null,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const votesData=useSelector((state) => state.votes.vote);
   //console.log("votesData",votesData)
