@@ -1,10 +1,11 @@
-const tokenConfig = (getState) => {
+const redmineConfig = (getState) => {
 
     const token = getState().auth.token;
 
     const config = {
       headers: {
         "Content-type": "application/json",
+        'X-Redmine-API-Key': '492bf0e5a0f16373cf6779deff49a3c6331751b1'
       },
     };
   
@@ -15,4 +16,4 @@ const tokenConfig = (getState) => {
     return config;
   };
 
-  export default tokenConfig;
+export default redmineConfig;

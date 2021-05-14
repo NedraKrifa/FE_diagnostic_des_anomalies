@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Form, Input, Select, Checkbox, Divider } from "antd";
+import { Form, Input, Select, Divider, Radio } from "antd";
 import { FormSF, ButtonSF } from "./SearchFilterForm.styled";
 import { useSelector, useDispatch } from "react-redux";
-import { getSearchQuestions } from '../../../../Redux/actions/Questions/questionsActions';
+import { getSearchQuestions, getSearchRedmine } from '../../../../Redux/actions/Questions/questionsActions';
 import { SearchOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
@@ -20,60 +20,55 @@ const tailLayout = {
   wrapperCol: { span: 4 },
 };
 
-const CheckboxGroup = Checkbox.Group;
-
-const plainOptions = ['Search', 'Redmine'];
-const defaultCheckedList = ['Search'];
+const options = [
+  { label: 'Search', value: 'Search' },
+  { label: 'Redmine', value: 'Redmine' },
+];
 
 export default function SearchFilterForm() {
   const dispatch = useDispatch();
     const users = useSelector((state) => state.users.users);
     const tags = useSelector((state) => state.tags.tags);
     const [form] = Form.useForm();
-    const [checkedList, setCheckedList] = useState(defaultCheckedList);
-    const [indeterminate, setIndeterminate] = useState(true);
-    const [checkAll, setCheckAll] = useState(false);
+    const [checkedValue, setCheckedValue] = useState('Search');
 
     const onFinish = (values) => {
+      console.log(checkedValue);
         //console.log('Received values of form: ', values);
-        const listTags=[];
-        if(values.tags){
-          values.tags.forEach((element) => {
-            if (Number(element) || Number(element) === 0) {
-              listTags.push(tags[Number(element)].name);
-            } else {
-              listTags.push(element);
-            }
-          });
-        }
-
-        const listUsers=[];
-        if(values.users){
-          values.users.forEach((element) => {
-            if (Number(element) || Number(element) === 0) {
-              listUsers.push(users[Number(element)].username);
-            } else {
-              listUsers.push(element);
-            }
-          });
-        }
 
         const title=values.title ? values.title: ''
-
-        const question = "?title="+title+"&tags="+listTags.join(",")+"&authors="+listUsers.join(",");
-        dispatch(getSearchQuestions(question)); 
+        if(checkedValue === 'Search'){
+          const listTags=[];
+          if(values.tags){
+            values.tags.forEach((element) => {
+              if (Number(element) || Number(element) === 0) {
+                listTags.push(tags[Number(element)].name);
+              } else {
+                listTags.push(element);
+              }
+            });
+          }
+  
+          const listUsers=[];
+          if(values.users){
+            values.users.forEach((element) => {
+              if (Number(element) || Number(element) === 0) {
+                listUsers.push(users[Number(element)].username);
+              } else {
+                listUsers.push(element);
+              }
+            });
+          }
+  
+          const question = "?title="+title+"&tags="+listTags.join(",")+"&authors="+listUsers.join(",");
+          dispatch(getSearchQuestions(question));
+        }else{
+          dispatch(getSearchRedmine(title));
+        }
     }
-
-    const onChange = list => {
-        setCheckedList(list);
-        setIndeterminate(!!list.length && list.length < plainOptions.length);
-        setCheckAll(list.length === plainOptions.length);
-      };
     
-      const onCheckAllChange = e => {
-        setCheckedList(e.target.checked ? plainOptions : []);
-        setIndeterminate(false);
-        setCheckAll(e.target.checked);
+      const onCheckChange = (e) => {
+        setCheckedValue(e.target.value);
       };
 
 
@@ -123,23 +118,22 @@ export default function SearchFilterForm() {
         </Form.Item>
 
         <Form.Item>
-          <Checkbox
-            indeterminate={indeterminate}
-            onChange={onCheckAllChange}
-            checked={checkAll}
-          >
-            Check all
-          </Checkbox>
           <Divider />
-          <CheckboxGroup
-            options={plainOptions}
-            value={checkedList}
-            onChange={onChange}
+          <Radio.Group
+            options={options}
+            onChange={onCheckChange}
+            value={checkedValue}
+            optionType="button"
           />
         </Form.Item>
 
         <Form.Item {...tailLayout}>
-          <ButtonSF htmlType="submit" block size="large" icon={<SearchOutlined />}>
+          <ButtonSF
+            htmlType="submit"
+            block
+            size="large"
+            icon={<SearchOutlined />}
+          >
             Search
           </ButtonSF>
         </Form.Item>

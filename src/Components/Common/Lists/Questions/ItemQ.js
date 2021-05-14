@@ -2,9 +2,8 @@ import React from 'react';
 import { convertDate } from "../../../../Utils/Utils";
 import { List, Avatar, Space } from 'antd';
 import { MessageOutlined, LikeOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import {BodyContainer} from './ListQ.styled';
+import {BodyContainer, QuestionItem} from './ListQ.styled';
 import TagItem from '../../TopTags/TagItem';
-import { QuestionItem } from "./ListQ.styled";
 
 const IconText = ({ icon, text }) => (
     <Space>
@@ -24,12 +23,12 @@ export default function ItemQ({question}) {
           />,
           <IconText
             icon={QuestionCircleOutlined}
-            text={question.answers.length}
+            text={question.answers ? question.answers.length : 0}
             key="list-vertical-answer-o"
           />,
           <IconText
             icon={MessageOutlined}
-            text={question.comments.length}
+            text={question.comments ? question.comments.length : 0}
             key="list-vertical-comment"
           />,
         ]}
@@ -42,14 +41,20 @@ export default function ItemQ({question}) {
             />
           }
           title={
-            <a href={`/private/questions/question/${question._id}`} style={{fontSize:"25px"}}>
+            <a
+              href={`/private/questions/question/${question._id}`}
+              style={{ fontSize: "25px" }}
+            >
               {question.title}
             </a>
           }
           description={
             <div>
               Asked by
-              <a style={{ margin: "0px 5px" }} href={`/private/users/${question.author._id}`}>
+              <a
+                style={{ margin: "0px 5px" }}
+                href={`/private/users/${question.author._id}`}
+              >
                 {question.author.username}
               </a>
               {convertDate(question.created)}
@@ -57,16 +62,18 @@ export default function ItemQ({question}) {
           }
         />
         <BodyContainer>{question.body}</BodyContainer>
-        {question.tags.map((tag, i) => (
-          <TagItem
-            key={i}
-            style={{
-              marginBottom: "10px",
-              marginTop: "10px",
-            }}
-            tag={tag}
-          />
-        ))}
+        {question.tags
+          ? question.tags.map((tag, i) => (
+              <TagItem
+                key={i}
+                style={{
+                  marginBottom: "10px",
+                  marginTop: "10px",
+                }}
+                tag={tag}
+              />
+            ))
+          : ""}
       </QuestionItem>
     );
 }

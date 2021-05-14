@@ -11,11 +11,13 @@ import {
     UPDATE_QUESTION,
     ADD_QUESTION,
     GET_SEARCH_QUESTIONS,
+    GET_SEARCH_REDMINE,
   } from '../../actions/Questions/questionsTypes';
   
   const initialState = {
     questions: [],
     question: {},
+    filter: 'Search',
     loading: false,
     error: {},
   };
@@ -27,10 +29,17 @@ import {
       case GET_TAG_QUESTIONS:
       case GET_OLD_QUESTIONS:
       case GET_USER_QUESTIONS:
+        return {
+          ...state,
+          questions: action.payload,
+          loading: false,
+        };
+      case GET_SEARCH_REDMINE:
       case GET_SEARCH_QUESTIONS:
         return {
           ...state,
           questions: action.payload,
+          filter: action.filter,
           loading: false,
         };
       case GET_QUESTION:

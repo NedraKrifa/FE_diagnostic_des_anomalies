@@ -3,6 +3,7 @@ import { Row, Col, Avatar, List, Typography, Divider } from 'antd';
 import { convertDate } from "../../../../Utils/Utils";
 import { useDispatch,useSelector } from "react-redux";
 import { getUserQuestions } from "../../../../Redux/actions/Questions/questionsActions";
+import ItemQ from '../../../Common/Lists/Questions/ItemQ';
 
 export default function ProfileBody({user}) {
   const dispatch = useDispatch();
@@ -21,8 +22,7 @@ export default function ProfileBody({user}) {
         </h1>
         <Divider style={{ border: "1px solid #5867dd" }} />
         <Row
-          justify="space-between"
-          style={{ marginBottom: "50px", width: "50%" }}
+          style={{ marginBottom: "50px" }}
         >
           <Col>
             <Avatar
@@ -31,7 +31,7 @@ export default function ProfileBody({user}) {
               src={`https://secure.gravatar.com/avatar/${user._id}?s=164&d=identicon`}
             />
           </Col>
-          <Col style={{ marginTop: "20px" }}>
+          <Col style={{ marginTop: "20px",marginLeft:"20px" }}>
             <h3 style={{ color: "#484848" }}>Email: {user.email}</h3>
             <h3 style={{ color: "#484848" }}>Role: {user.role}</h3>
             <h3 style={{ color: "#484848" }}>
@@ -40,6 +40,8 @@ export default function ProfileBody({user}) {
           </Col>
         </Row>
         <List
+          itemLayout="vertical"
+          size="large"
           header={<h1>Questions</h1>}
           pagination={{
             onChange: (page) => {
@@ -48,17 +50,7 @@ export default function ProfileBody({user}) {
             pageSize: 6,
           }}
           dataSource={questions}
-          renderItem={(item, i) => (
-            <List.Item style={{ marginLeft: "80px",fontSize: "18px", display:'flex',justifyContent:'flex-start' }}>
-              <Typography.Text code>{i}</Typography.Text>
-              <a
-                href={`/private/questions/question/${item._id}`}
-                style={{ color:"black",marginLeft: "10px" }}
-              >
-                {item.title}
-              </a>
-            </List.Item>
-          )}
+          renderItem={(item, i) => <ItemQ key={item._id} question={item} />}
         />
       </div>
     );

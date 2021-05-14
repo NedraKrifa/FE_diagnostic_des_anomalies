@@ -9,10 +9,12 @@ import {
     ADD_QUESTION,
     UPDATE_QUESTION,
     QUESTIONS_LOADING,
-    GET_SEARCH_QUESTIONS
+    GET_SEARCH_QUESTIONS,
+    GET_SEARCH_REDMINE
   } from './questionsTypes';
 import axios from "axios";
 import tokenConfig from "../Auth/authUtils";
+import redmineConfig from "./questionUtils";
 import { getErrors } from "../Errors/errorsActions";
 
 export const getQuestions = () => (dispatch, getState) => {
@@ -104,6 +106,30 @@ export const getSearchQuestions = (body) => (dispatch, getState) => {
       dispatch({
         type: GET_SEARCH_QUESTIONS,
         payload: questions,
+        filter: 'Search',
+      })
+    )
+    .catch((err) =>
+      dispatch(getErrors(err.response.data, err.response.status))
+    );
+};
+
+export const getSearchRedmine = (title) => (dispatch, getState) => {
+  dispatch(setQuestionsLoading());
+  axios
+    /*.get(
+      `https://pmstaging.proxym-group.net/issues.json?easy_query_q=${title}`,
+      redmineConfig(getState)
+    )*/
+    .get(`/issues.json?utf8=✓&set_filter=1&sort=id%3Adesc&f%5B%5D=status_id&op%5Bstatus_id%5D=o&f%5B%5D=subject&op%5Bsubject%5D=~&v%5Bsubject%5D%5B%5D=${title}&f%5B%5D=&c%5B%5D=project&c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=priority&c%5B%5D=subject&c%5B%5D=assigned_to&c%5B%5D=updated_on&group_by=&t%5B%5D=`, {
+      headers:{"Content-type": "application/json"}
+    })
+    .then((res) => res.data)
+    .then((questions) =>
+      dispatch({
+        type: GET_SEARCH_REDMINE,
+        payload: questions.issues,
+        filter: "Redmine",
       })
     )
     .catch((err) =>
