@@ -10,6 +10,10 @@
     border: none !important;
     background-color: transparent !important;
 }
+.--active{
+    color: rgb(2, 226, 51);
+}
+
 .ant-list-item-action > li{
     font-size: 20px !important;
 }

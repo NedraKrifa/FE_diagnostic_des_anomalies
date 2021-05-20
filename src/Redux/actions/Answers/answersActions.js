@@ -2,8 +2,10 @@ import {
     GET_ANSWERS,
     ADD_ANSWER,
     ANSWERS_LOADING,
-    DELETE_ANSWER
+    DELETE_ANSWER,
+    UPDATE_BLOCKED_ANSWER
   } from './answersTypes';
+  import { UPDATE_ANSWER_QUESTION } from "../Questions/questionsTypes";
 import axios from "axios";
 import tokenConfig from "../Auth/authUtils";
 import { getErrors } from "../Errors/errorsActions";
@@ -50,6 +52,33 @@ export const deleteAnswer = (id) => (dispatch, getState) => {
       dispatch({
         type: DELETE_ANSWER,
         payload: id,
+      })
+    )
+    .catch((err) =>
+      dispatch(getErrors(err.response.data, err.response.status))
+    );
+};
+
+export const updateAnswer = (id,body) => (dispatch, getState) => {
+  axios
+    .patch(`/api/answers/check/${id}`,body, tokenConfig(getState))
+    .then((res) =>
+      dispatch({
+        type: UPDATE_ANSWER_QUESTION,
+        payload: body.checked,
+      })
+    )
+    .catch((err) =>
+      dispatch(getErrors(err.response.data, err.response.status))
+    );
+};
+
+export const updateBlockedAnswer = (id,body) => (dispatch, getState) => {
+  axios
+    .patch(`/api/answers/block/${id}`,body, tokenConfig(getState))
+    .then((res) =>
+      dispatch({
+        type: UPDATE_BLOCKED_ANSWER
       })
     )
     .catch((err) =>

@@ -34,3 +34,17 @@ export const deleteComment = (id) => (dispatch, getState) => {
       dispatch(getErrors(err.response.data, err.response.status))
     );
 };
+
+/*
+export const updateBlockedComment = (id,body) => (dispatch, getState) => {
+  axios
+    .patch(`/api/comments/${id}`,body, tokenConfig(getState))
+    .then((res) =>
+      dispatch({
+        type: UPDATE_BLOCKED_COMMENT
+      })
+    )
+    .catch((err) =>
+      dispatch(getErrors(err.response.data, err.response.status))
+    );
+};*/

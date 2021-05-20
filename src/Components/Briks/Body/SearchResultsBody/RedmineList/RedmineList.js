@@ -9,7 +9,7 @@ export default function RedmineList({questions}) {
         size="large"
         pagination={{
           onChange: (page) => {
-            console.log(page);
+            //console.log(page);
           },
           pageSize: 5,
           showSizeChanger:false,

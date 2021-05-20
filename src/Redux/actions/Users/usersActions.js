@@ -4,6 +4,7 @@ import {
   GET_MODERATORS,
   GET_USER,
   USERS_LOADING,
+  GET_SEARCH_USERS
 } from "./usersTypes";
   import axios from "axios";
   import tokenConfig from "../Auth/authUtils";
@@ -69,6 +70,23 @@ import {
       .catch((err) =>
         dispatch(getErrors(err.response.data, err.response.status))
       );
+  };
+
+  export const getSearchUsers= (name) => (dispatch, getState) => {
+    name
+      ? axios
+          .get(`/api/users/searchuser/${name}`, tokenConfig(getState))
+          .then((res) => res.data)
+          .then((users) =>
+            dispatch({
+              type: GET_SEARCH_USERS,
+              payload: users,
+            })
+          )
+          .catch((err) =>
+            dispatch(getErrors(err.response.data, err.response.status))
+          )
+      : dispatch(getMembers());
   };
   
   export const setUsersLoading = () => {

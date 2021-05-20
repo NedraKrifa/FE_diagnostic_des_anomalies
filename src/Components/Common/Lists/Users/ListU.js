@@ -17,7 +17,7 @@ export default function ListU({users}) {
         style={{ marginTop: "50px" }}
         pagination={{
           onChange: (page) => {
-            console.log(page);
+            //console.log(page);
           },
           pageSize: 16,
           showSizeChanger:false,

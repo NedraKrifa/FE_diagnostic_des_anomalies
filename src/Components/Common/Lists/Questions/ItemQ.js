@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import { convertDate } from "../../../../Utils/Utils";
-import { List, Avatar, Space } from 'antd';
-import { MessageOutlined, LikeOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { List, Avatar, Space, Button, Row } from 'antd';
+import { MessageOutlined, LikeOutlined, QuestionCircleOutlined,StopOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import {BodyContainer, QuestionItem} from './ListQ.styled';
 import TagItem from '../../TopTags/TagItem';
+import { updateBlockedQuestion } from "../../../../Redux/actions/Questions/questionsActions";
 
 const IconText = ({ icon, text }) => (
     <Space>
@@ -12,7 +14,25 @@ const IconText = ({ icon, text }) => (
     </Space>
   );
 
-export default function ItemQ({question}) {
+export default function ItemQ({question,Moderator}) {
+  const dispatch = useDispatch();
+  const [blockedValue, setBlockedValue] = useState(question.blocked?question.blocked:false);
+
+  const onUnblock=()=>{
+    setBlockedValue(false)
+    const body = {
+      blocked: false,
+    };
+    dispatch(updateBlockedQuestion(question._id,body))
+  }
+  const onblock=()=>{
+    setBlockedValue(true)
+    const body = {
+      blocked: true,
+    };
+    dispatch(updateBlockedQuestion(question._id,body))
+  }
+
     return (
       <QuestionItem
         actions={[
@@ -74,6 +94,34 @@ export default function ItemQ({question}) {
               />
             ))
           : ""}
+        {Moderator ? (
+          <Row justify="end">
+            {blockedValue ? (
+              <Button
+                type="primary"
+                danger
+                shape="round"
+                icon={<StopOutlined />}
+                size="large"
+                onClick={()=>onUnblock()}
+              >
+                blocked
+              </Button>
+            ) : (
+              <Button
+                type="primary"
+                shape="round"
+                icon={<CheckCircleOutlined />}
+                size="large"
+                onClick={()=>onblock()}
+              >
+                unblocked
+              </Button>
+            )}
+          </Row>
+        ) : (
+          ""
+        )}
       </QuestionItem>
     );
 }

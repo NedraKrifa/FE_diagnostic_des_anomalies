@@ -6,6 +6,8 @@ import QuestionsList from '../Pages/QuestionsList/QuestionsList'
 import Tags from '../Pages/Tags/Tags';
 import QuestionAnswer from '../Pages/QuestionAnswer/QuestionAnswer';
 import Users from '../Pages/Users/Users';
+import Moderation from "../Pages/Moderation/Moderation";
+import Administration from "../Pages/Administration/Administration";
 import QuestionsTag from '../Pages/QuestionsTag/QuestionsTag';
 import SearchResults from '../Pages/SearchResults/SearchResults';
 import QuestionForm from '../Pages/QuestionForm/QuestionForm';
@@ -25,6 +27,8 @@ export default function Private() {
           <Route exact path="/private/questions" component={QuestionsList} />
           <Route exact path="/private/tags" component={Tags} />
           <Route exact path="/private/users" component={Users} />
+          <Route exact path="/private/moderation" component={Moderation} />
+          <Route exact path="/private/administration" component={Administration} />
           <Route
             exact
             path="/private/questions/question/:id"

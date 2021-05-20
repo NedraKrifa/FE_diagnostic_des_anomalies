@@ -33,7 +33,7 @@ export default function SearchFilterForm() {
     const [checkedValue, setCheckedValue] = useState('Search');
 
     const onFinish = (values) => {
-      console.log(checkedValue);
+      //console.log(checkedValue);
         //console.log('Received values of form: ', values);
 
         const title=values.title ? values.title: ''

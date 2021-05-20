@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react'
-import { Row, Col, Avatar, List, Typography, Divider } from 'antd';
+import { Row, Col, Avatar, List, Divider } from 'antd';
 import { convertDate } from "../../../../Utils/Utils";
 import { useDispatch,useSelector } from "react-redux";
 import { getUserQuestions } from "../../../../Redux/actions/Questions/questionsActions";
@@ -45,7 +45,7 @@ export default function ProfileBody({user}) {
           header={<h1>Questions</h1>}
           pagination={{
             onChange: (page) => {
-              console.log(page);
+              //console.log(page);
             },
             pageSize: 6,
           }}

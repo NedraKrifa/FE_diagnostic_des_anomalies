@@ -5,7 +5,7 @@ const redmineConfig = (getState) => {
     const config = {
       headers: {
         "Content-type": "application/json",
-        'X-Redmine-API-Key': '492bf0e5a0f16373cf6779deff49a3c6331751b1'
+        "X-Redmine-API-Key": "8c9aee949ccd13618540b5b3829e182181dd408e",
       },
     };
   

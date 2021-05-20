@@ -1,13 +1,14 @@
 import React,{ useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col, List, Avatar, Divider, Button } from 'antd';
-import { CaretUpFilled, CaretDownFilled } from '@ant-design/icons';
+import { CaretUpFilled, CaretDownFilled, CheckCircleOutlined,CheckOutlined, StopOutlined } from '@ant-design/icons';
 import CommentQuestion from '../Comments/CommentQuestion';
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { upVote, downVote, getVote} from "../../../Redux/actions/Votes/votesActions";
+import { updateAnswer, updateBlockedAnswer } from "../../../Redux/actions/Answers/answersActions";
 
 const renderers = {
   code: ({language, value}) => {
@@ -18,7 +19,10 @@ const renderers = {
 export default function ItemATQ({value, datetime, user, answer}) {
   const dispatch = useDispatch();
   const [voteValue, setVoteValue] = useState(answer.vote?answer.vote:0);
+  const [checkValue, setCheckValue] = useState(answer.checked?answer.checked:false);
+  //const [blockedValue, setBlockedValue] = useState(answer.blocked?answer.blocked:false);
   const item = useSelector((state) => state.auth.user);
+  const {author,checked,_id} = useSelector((state) => state.questions.question);
   const useritem =item ? item : '';
   //console.log('answervote',answer.vote);
   useEffect(
@@ -55,8 +59,43 @@ export default function ItemATQ({value, datetime, user, answer}) {
     }
     dispatch(downVote(vote,refetchVoteValue));
   }
+
+  const onCheck=()=>{
+    setCheckValue(true);
+    const body={
+      questionId:_id,
+      checked: true
+    }
+    dispatch(updateAnswer(answer._id,body))
+  }
+
+  const onUncheck=()=>{
+    setCheckValue(false);
+    const body={
+      questionId:_id,
+      checked: false
+    }
+    dispatch(updateAnswer(answer._id,body))
+  }
+/*
+  const onUnblock=()=>{
+    setBlockedValue(false)
+    const body = {
+      blocked: false,
+    };
+    dispatch(updateBlockedAnswer(answer._id,body))
+  }
+  const onblock=()=>{
+    setBlockedValue(true)
+    const body = {
+      blocked: true,
+    };
+    dispatch(updateBlockedAnswer(answer._id,body))
+  }*/
+  
   //console.log('vote',voteValue);
   //console.log('voteStyle',voteStyle);
+  //console.log('checkValue',checkValue)
     return (
       <Row>
         <Col span={4} style={{ fontSize: "50px", color: "grey" }}>
@@ -79,6 +118,38 @@ export default function ItemATQ({value, datetime, user, answer}) {
               onClick={() => decrement()}
             />
           </Row>
+          {author._id === useritem._id ? (
+            checkValue ? (
+              <Row justify="center" style={{ marginTop: "30px" }}>
+                <Button
+                  shape="circle"
+                  className="button --active"
+                  icon={<CheckOutlined style={{ fontSize: "50px" }} />}
+                  onClick={() => onUncheck()}
+                />
+              </Row>
+            ) : (
+              <Row justify="center" style={{ marginTop: "30px" }}>
+                <Button
+                  shape="circle"
+                  className="button"
+                  disabled={checked}
+                  icon={<CheckCircleOutlined style={{ fontSize: "50px" }} />}
+                  onClick={() => onCheck()}
+                />
+              </Row>
+            )
+          ) : checkValue ? (
+            <Row justify="center" style={{ marginTop: "30px" }}>
+              <Button
+                shape="circle"
+                className="button --active"
+                icon={<CheckOutlined style={{ fontSize: "50px" }} />}
+              />
+            </Row>
+          ) : (
+            ""
+          )}
         </Col>
         <Col span={18}>
           <ReactMarkdown
@@ -122,3 +193,33 @@ export default function ItemATQ({value, datetime, user, answer}) {
       </Row>
     );
 }
+
+/*
+          {useritem.role === "Moderator" ? (
+            <Row justify="end">
+              {blockedValue ? (
+                <Button
+                  type="primary"
+                  danger
+                  shape="round"
+                  icon={<StopOutlined />}
+                  size="large"
+                  onClick={() => onUnblock()}
+                >
+                  blocked
+                </Button>
+              ) : (
+                <Button
+                  type="primary"
+                  shape="round"
+                  icon={<CheckCircleOutlined />}
+                  size="large"
+                  onClick={() => onblock()}
+                >
+                  unblocked
+                </Button>
+              )}
+            </Row>
+          ) : (
+            ""
+          )}*/

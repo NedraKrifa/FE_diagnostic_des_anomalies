@@ -1,10 +1,11 @@
-import React from 'react'
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Input, Row, Col } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import ListT from '../../../Common/Lists/Tags/ListT';
 import TagsFilter from '../../../Common/Menu/FilterMenu/TagsFilter/TagsFilter';
 import { TitleH1 } from '../../../../App.styled';
+import { getSearchTags } from '../../../../Redux/actions/Tags/tagsActions';
 
 const prefix = (
     <SearchOutlined
@@ -12,11 +13,20 @@ const prefix = (
         fontSize: 30,
         color: "#5867dd",
       }}
-      onClick={()=>console.log('prefix')}
     />
   );
 
 export default function TagsBody() {
+  const dispatch = useDispatch();
+  const [value, setValue] = useState('');
+  
+  const onChange = (e) => {
+    setValue(e.target.value);
+  };
+
+  const enterSearch = () => {
+    dispatch(getSearchTags(value));
+  };
   const tags = useSelector((state) => state.tags.tags);
     return (
       <>
@@ -36,6 +46,8 @@ export default function TagsBody() {
               size="large"
               prefix={prefix}
               style={{ width: 250, padding:'10px' }}
+              onChange={onChange}
+              onPressEnter={enterSearch}
             />
           </Col>
           <Col>

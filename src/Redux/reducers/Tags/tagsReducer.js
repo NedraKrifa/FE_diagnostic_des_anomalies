@@ -4,7 +4,8 @@ import {
   GET_TOP_TAGS,
   TAGS_LOADING,
   TAGS_ERROR,
-  GET_TAG
+  GET_TAG,
+  GET_SEARCH_TAGS
 } from "../../actions/Tags/tagsTypes";
   
   const initialState = {
@@ -19,6 +20,7 @@ import {
       case GET_NAME_TAGS:
       case GET_NEW_TAGS:
       case GET_TOP_TAGS:
+      case GET_SEARCH_TAGS:
         return {
           ...state,
           tags: action.payload,

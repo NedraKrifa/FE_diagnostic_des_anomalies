@@ -17,7 +17,7 @@ export default function  ListTU({tags}) {
         style={{ marginTop: "50px" }}
         pagination={{
           onChange: (page) => {
-            console.log(page);
+            //console.log(page);
           },
           pageSize: 12,
           showSizeChanger:false,
