@@ -5,7 +5,8 @@ import {
     GET_USER,
     USERS_LOADING,
     USERS_ERROR,
-    GET_SEARCH_USERS
+    GET_SEARCH_USERS,
+    GET_ALL_USERS
   } from "../../actions/Users/usersTypes";
     
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
     
 export default function usersReducer (state = initialState, action) {
     switch (action.type) {
+    case GET_ALL_USERS:
     case GET_SEARCH_USERS:
     case GET_MEMBERS:
     case GET_MODERATORS:

@@ -4,12 +4,31 @@ import {
   GET_MODERATORS,
   GET_USER,
   USERS_LOADING,
-  GET_SEARCH_USERS
+  GET_SEARCH_USERS,
+  GET_ALL_USERS,
+  UPDATE_USER_ROLE
 } from "./usersTypes";
   import axios from "axios";
   import tokenConfig from "../Auth/authUtils";
   import { getErrors } from "../Errors/errorsActions";
   
+
+  export const getAllUsers = () => (dispatch, getState) => {
+    dispatch(setUsersLoading());
+    axios
+      .get("/api/users/", tokenConfig(getState))
+      .then((res) => res.data)
+      .then((users) =>
+        dispatch({
+          type: GET_ALL_USERS,
+          payload: users,
+        })
+      )
+      .catch((err) =>
+        dispatch(getErrors(err.response.data, err.response.status))
+      );
+  };
+
   export const getMembers = () => (dispatch, getState) => {
     dispatch(setUsersLoading());
     axios
@@ -87,6 +106,19 @@ import {
             dispatch(getErrors(err.response.data, err.response.status))
           )
       : dispatch(getMembers());
+  };
+
+  export const updateUserRole = (id,body) => (dispatch, getState) => {
+    axios
+      .patch(`/api/users/role/${id}`,body, tokenConfig(getState))
+      .then((res) =>
+        dispatch({
+          type: UPDATE_USER_ROLE
+        })
+      )
+      .catch((err) =>
+        dispatch(getErrors(err.response.data, err.response.status))
+      );
   };
   
   export const setUsersLoading = () => {

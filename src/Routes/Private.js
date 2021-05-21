@@ -13,14 +13,14 @@ import SearchResults from '../Pages/SearchResults/SearchResults';
 import QuestionForm from '../Pages/QuestionForm/QuestionForm';
 import { loadUser } from '../Redux/actions/Auth/authActions';
 import { getTopTags } from "../Redux/actions/Tags/tagsActions";
-import { getMembers } from "../Redux/actions/Users/usersActions";
+import { getAllUsers } from "../Redux/actions/Users/usersActions";
 import { useDispatch } from "react-redux";
 
 export default function Private() {
   const dispatch = useDispatch();
   useEffect(() => dispatch(loadUser()), [dispatch]);
   useEffect(() => dispatch(getTopTags()), [dispatch]);
-  useEffect(() => dispatch(getMembers()), [dispatch]);
+  useEffect(() => dispatch(getAllUsers()), [dispatch]);
     return (
         <Switch>
           <Route exact path="/private" component={Home} />

@@ -4,4 +4,6 @@ export const GET_ADMINISTRATORS = 'GET_ADMINISTRATORS';
 export const USERS_LOADING = 'USERS_LOADING';
 export const USERS_ERROR = 'USERS_ERROR';
 export const GET_USER = 'GET_USER';
+export const UPDATE_USER_ROLE = 'UPDATE_USER_ROLE';
 export const GET_SEARCH_USERS = 'GET_SEARCH_USERS';
+export const GET_ALL_USERS = 'GET_ALL_USERS';
