@@ -42,7 +42,7 @@ export default function LoginForm() {
         name="login"
         onFinish={onFinish}
         scrollToFirstError
-        style={{ padding: "100px" }}
+        style={{ padding: " 50px 100px" }}
       >
         <Form.Item>
           <h1 style={{ textAlign: "center" }}>
@@ -67,7 +67,7 @@ export default function LoginForm() {
           ]}
           hasFeedback
         >
-          <Input allowClear placeholder="Enter Your Username" />
+          <Input allowClear size="large" placeholder="Enter Your Username" />
         </Form.Item>
 
         <Form.Item
@@ -81,7 +81,7 @@ export default function LoginForm() {
           ]}
           hasFeedback
         >
-          <Input.Password allowClear placeholder="Enter Your Password" />
+          <Input.Password allowClear size="large" placeholder="Enter Your Password" />
         </Form.Item>
 
         <Form.Item>

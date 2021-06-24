@@ -1,6 +1,7 @@
 import React from 'react'
 import { Menu, ItemGroup, Item } from "./AppMenu.styled";
 import { useSelector } from "react-redux";
+import { HomeOutlined,QuestionCircleOutlined,TagOutlined,UserOutlined,SettingOutlined, SolutionOutlined } from '@ant-design/icons';
 
 export default function AppMenu() {
   const user = useSelector((state) => state.auth.user);
@@ -8,28 +9,28 @@ export default function AppMenu() {
     return (
       <Menu>
         <Item exact activeClassName="itemselect" to="/private">
-          Home
+          Home <HomeOutlined style={{ marginLeft:"210px"}} />
         </Item>
         <ItemGroup>PUBLIC</ItemGroup>
         <Item activeClassName="itemselect" to="/private/questions">
-          Questions
+          Questions <QuestionCircleOutlined style={{ marginLeft:"175px"}}/>
         </Item>
         <Item activeClassName="itemselect" to="/private/tags">
-          Tags
+          Tags <TagOutlined style={{ marginLeft:"222px"}}/>
         </Item>
         <Item activeClassName="itemselect" to="/private/users">
-          Users
+          Users <UserOutlined style={{ marginLeft:"215px"}}/>
         </Item>
         {userRole === "Moderator" ? (
           <Item activeClassName="itemselect" to="/private/moderation">
-            Moderation
+            Moderation <SettingOutlined style={{ marginLeft:"163px"}}/>
           </Item>
         ) : (
           ""
         )}
         {userRole === "Administrator" ? (
           <Item activeClassName="itemselect" to="/private/administration">
-            Administration
+            Administration <SolutionOutlined style={{ marginLeft:"135px"}} />
           </Item>
         ) : (
           ""

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { convertDate } from "../../../../Utils/Utils";
-import { List, Avatar, Space, Button, Row } from 'antd';
+import { List, Avatar, Space, Button, Row, Modal, Input } from 'antd';
 import { MessageOutlined, LikeOutlined, QuestionCircleOutlined,StopOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import {BodyContainer, QuestionItem} from './ListQ.styled';
 import TagItem from '../../TopTags/TagItem';
 import { updateBlockedQuestion } from "../../../../Redux/actions/Questions/questionsActions";
 
+const { TextArea } = Input;
 const IconText = ({ icon, text }) => (
     <Space>
       {React.createElement(icon)}
@@ -17,7 +18,16 @@ const IconText = ({ icon, text }) => (
 export default function ItemQ({question,Moderator}) {
   const dispatch = useDispatch();
   const [blockedValue, setBlockedValue] = useState(question.blocked?question.blocked:false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [reason, setReason] = useState("");
 
+  const handleChange=(event)=> {
+    setReason(event.target.value);
+  }
+  const handleCancel=()=>{
+    setModalVisible(false);
+    setReason("");
+  }
   const onUnblock=()=>{
     setBlockedValue(false)
     const body = {
@@ -26,11 +36,15 @@ export default function ItemQ({question,Moderator}) {
     dispatch(updateBlockedQuestion(question._id,body))
   }
   const onblock=()=>{
+    setModalVisible(false);
     setBlockedValue(true)
+    console.log(reason);
     const body = {
       blocked: true,
+      text: reason,
     };
     dispatch(updateBlockedQuestion(question._id,body))
+    setReason("");
   }
 
     return (
@@ -103,7 +117,7 @@ export default function ItemQ({question,Moderator}) {
                 shape="round"
                 icon={<StopOutlined />}
                 size="large"
-                onClick={()=>onUnblock()}
+                onClick={() => onUnblock()}
               >
                 blocked
               </Button>
@@ -113,7 +127,7 @@ export default function ItemQ({question,Moderator}) {
                 shape="round"
                 icon={<CheckCircleOutlined />}
                 size="large"
-                onClick={()=>onblock()}
+                onClick={() => setModalVisible(true)}
               >
                 unblocked
               </Button>
@@ -122,6 +136,20 @@ export default function ItemQ({question,Moderator}) {
         ) : (
           ""
         )}
+        <Modal
+          title="Add the reason for blocking this question"
+          centered
+          visible={modalVisible}
+          onOk={() => onblock()}
+          onCancel={() => handleCancel()}
+        >
+          <TextArea
+            placeholder="add your reason..."
+            value={reason}
+            onChange={handleChange}
+            rows={4}
+          />
+        </Modal>
       </QuestionItem>
     );
 }
