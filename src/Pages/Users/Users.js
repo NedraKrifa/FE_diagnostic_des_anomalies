@@ -1,15 +1,17 @@
-import React from 'react'
-import { useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import UsersBody from '../../Components/Briks/Body/UsersBody/UsersBody';
+import AppLayout from '../../Layouts/AppLayout';
+import { getMembers } from "../../Redux/actions/Users/usersActions";
 
 export default function Users() {
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-    if (!isAuthenticated) {
-        return <Redirect to="/login" />;
-    }
+  const dispatch = useDispatch();
+  useEffect(() => dispatch(getMembers()), [dispatch]);
     return (
-        <div>
-            Users Page
-        </div>
-    )
+      <div>
+        <AppLayout>
+          <UsersBody />
+        </AppLayout>
+      </div>
+    );
 }

@@ -1,15 +1,13 @@
 import React from 'react'
-import { useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import SearchResultsBody from '../../Components/Briks/Body/SearchResultsBody/SearchResultsBody';
+import AppLayout from '../../Layouts/AppLayout';
 
 export default function SearchResults() {
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-    if (!isAuthenticated) {
-        return <Redirect to="/login" />;
-    }
     return (
-        <div>
-            SearchResults Page
-        </div>
-    )
+      <div>
+        <AppLayout isPTags>
+          <SearchResultsBody />
+        </AppLayout>
+      </div>
+    );
 }

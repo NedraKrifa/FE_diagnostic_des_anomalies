@@ -1,27 +1,17 @@
-import React from 'react'
-import LogoutButton from '../../Components/Common/Buttons/Logout/LogoutButton'
-import { useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
-import AskButton from '../../Components/Common/Buttons/AskButton/AskButton';
+import React, { useEffect } from 'react'
+import AppLayout from '../../Layouts/AppLayout';
+import HomeBody from '../../Components/Briks/Body/HomeBody/HomeBody';
+import { useDispatch } from "react-redux";
+import { getTopQuestions } from "../../Redux/actions/Questions/questionsActions";
 
 export default function Home() {
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-    const questions = useSelector((state) => state.questions.questions);
-    if (!isAuthenticated) {
-        return <Redirect to="/login" />;
-    }
+  const dispatch = useDispatch();
+    useEffect(() => dispatch(getTopQuestions()), [dispatch]);
     return (
-        <div>
-            <h1>Home page</h1>
-            <LogoutButton />
-            <div>
-                {questions.map((question) => (
-                    <div key={question._id}>
-                        {question.title}
-                    </div>
-                ))}
-            </div>
-            <AskButton />
-        </div>
-    )
+      <div>
+        <AppLayout isPTags>
+          <HomeBody />
+        </AppLayout>
+      </div>
+    );
 }

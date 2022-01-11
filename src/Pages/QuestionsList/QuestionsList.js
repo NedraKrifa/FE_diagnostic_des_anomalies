@@ -1,15 +1,17 @@
-import React from 'react'
-import { useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import React, { useEffect } from 'react'
+import AppLayout from '../../Layouts/AppLayout';
+import QuestionsBody from '../../Components/Briks/Body/QuestionsBody/QuestionsBody';
+import { useDispatch } from "react-redux";
+import { getQuestions } from "../../Redux/actions/Questions/questionsActions";
 
 export default function QuestionsList() {
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-    if (!isAuthenticated) {
-        return <Redirect to="/login" />;
-    }
+    const dispatch = useDispatch();
+    useEffect(() => dispatch(getQuestions()), [dispatch]);
     return (
         <div>
-            questions list
+            <AppLayout isPTags>
+                <QuestionsBody/>
+            </AppLayout>
         </div>
     )
 }

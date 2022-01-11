@@ -1,15 +1,13 @@
 import React from 'react'
-import { useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import TagsBody from '../../Components/Briks/Body/TagsBody/TagsBody';
+import AppLayout from '../../Layouts/AppLayout';
 
 export default function Tags() {
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-    if (!isAuthenticated) {
-        return <Redirect to="/login" />;
-    }
     return (
-        <div>
-            Tags page
-        </div>
-    )
+      <div>
+        <AppLayout>
+          <TagsBody />
+        </AppLayout>
+      </div>
+    );
 }

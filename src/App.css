@@ -1,5 +1,20 @@
-.App {
-  display: grid;
-  justify-content: center;
-  justify-items: center;
+.itemselect{
+    color: #5867dd !important;
+    background-color: rgba(88, 103, 221, 0.1);
+    border-right: 4px solid #5867dd;
 }
+.button{
+    color: grey;
+    width:50px;
+    height:50px;
+    border: none !important;
+    background-color: transparent !important;
+}
+.--active{
+    color: rgb(2, 226, 51);
+}
+
+.ant-list-item-action > li{
+    font-size: 20px !important;
+}
+
